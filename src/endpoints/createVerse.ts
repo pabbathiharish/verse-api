@@ -22,6 +22,13 @@ export class CreateVerse extends OpenAPIRoute {
 							mood: z.string().optional(),
 							tone: z.string().optional(),
 							tags: z.string().optional(),
+							translations: z.record(
+								z.string(),   // key type (language code)
+								z.object({
+									verse_text: z.string(),
+									reference: z.string()
+								})
+							)
 						})
 					}
 				}
@@ -41,80 +48,96 @@ export class CreateVerse extends OpenAPIRoute {
 	};
 
 	async handle(c: any) {
-	try {
-		const data = await this.getValidatedData<typeof this.schema>();
+		try {
+			const data = await this.getValidatedData<typeof this.schema>();
 
-		const {
-			verse_text,
-			reference,
-			category,
-			language,
-			image_url,
-			theme,
-			scene,
-			mood,
-			tone,
-			tags
-		} = data.body;
+			const {
+				verse_text,
+				reference,
+				category,
+				language,
+				image_url,
+				theme,
+				scene,
+				mood,
+				tone,
+				tags,
+				translations
+			} = data.body;
 
-		if (!verse_text || !reference || !image_url) {
-			return c.json(
-				{ success: false, error: "Missing required fields" },
-				400
-			);
-		}
+			if (!verse_text || !reference || !image_url) {
+				return c.json(
+					{ success: false, error: "Missing required fields" },
+					400
+				);
+			}
 
-		// 🔍 Check if already exists
-		const existing = await c.env.DB.prepare(`
+			// 🔍 Check if already exists
+			const existing = await c.env.DB.prepare(`
 			SELECT id FROM verses
 			WHERE verse_text = ? AND reference = ? AND language = ?
 			LIMIT 1
 		`).bind(verse_text, reference, language).first();
 
-		if (existing) {
-			return c.json({
-				success: true,
-				message: "Verse already exists",
-				id: existing.id
-			});
-		}
-
-		// ✅ Insert if not exists
-		await c.env.DB.prepare(`
+			if (existing) {
+				return c.json({
+					success: true,
+					message: "Verse already exists",
+					id: existing.id
+				});
+			}
+			const verseId = crypto.randomUUID();
+			// ✅ Insert if not exists
+			await c.env.DB.prepare(`
 			INSERT INTO verses 
 			(id, verse_text, reference, category, language, image_url, tags, theme, scene, mood, tone, created_at)
 			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 		`).bind(
-			crypto.randomUUID(),
-			verse_text,
-			reference,
-			category,
-			language,
-			image_url,
-			tags ?? "[]",
-			theme ?? "",
-			scene ?? "",
-			mood ?? "",
-			tone ?? "",
-			new Date().toISOString()
-		).run();
+				verseId,
+				verse_text,
+				reference,
+				category,
+				language,
+				image_url,
+				tags ?? "[]",
+				theme ?? "",
+				scene ?? "",
+				mood ?? "",
+				tone ?? "",
+				new Date().toISOString()
+			).run();
 
-		return c.json({
-			success: true,
-			message: "Verse created successfully"
-		});
+			// 2. Insert translations
+			for (const [lang, data] of Object.entries(translations)) {
+				await c.env.DB.prepare(`
+    INSERT OR IGNORE INTO verse_translations
+    (id, verse_id, language, verse_text, reference)
+    VALUES (?, ?, ?, ?, ?)
+  `).bind(
+					crypto.randomUUID(),
+					verseId,
+					lang,
+					data.verse_text,
+					data.reference
+				).run();
+			}
 
-	} catch (error: any) {
-		console.error("CreateVerse Error:", error);
+			return c.json({
+				success: true,
+				message: "Verse created successfully"
+			});
 
-		return c.json(
-			{
-				success: false,
-				error: "Internal server error",
-				details: error?.message
-			},
-			500
-		);
+		} catch (error: any) {
+			console.error("CreateVerse Error:", error);
+
+			return c.json(
+				{
+					success: false,
+					error: "Internal server error",
+					details: error?.message
+				},
+				500
+			);
+		}
 	}
-}
 }

@@ -4,7 +4,7 @@ import { z } from "zod";
 export class GetVerses extends OpenAPIRoute {
 	schema = {
 		tags: ["Verses"],
-		summary: "Get verses feed",
+		summary: "Get verses feed (multi-language)",
 		request: {
 			query: z.object({
 				category: z.string().optional(),
@@ -25,7 +25,7 @@ export class GetVerses extends OpenAPIRoute {
 	async handle(c: any) {
 		const query = c.req.query();
 
-		const category = query.category || "peace";
+		const category = query.category;
 		const language = query.language || "en";
 		const mood = query.mood;
 		const tone = query.tone;
@@ -34,27 +34,47 @@ export class GetVerses extends OpenAPIRoute {
 		const offset = Number(query.offset) || 0;
 
 		// -------------------------
-		// Dynamic Query Builder
+		// Dynamic Query
 		// -------------------------
 		let sql = `
-			SELECT * FROM verses
-			WHERE category = ? AND language = ?
+			SELECT 
+				v.id,
+				v.image_url,
+				v.category,
+				v.theme,
+				v.scene,
+				v.mood,
+				v.tone,
+				v.tags,
+				v.created_at,
+				t.verse_text,
+				t.reference
+			FROM verses v
+			JOIN verse_translations t
+			ON v.id = t.verse_id
+			WHERE t.language = ?
 		`;
 
-		const params: any[] = [category, language];
+		const params: any[] = [language];
+
+		// Optional filters
+		if (category) {
+			sql += " AND v.category = ?";
+			params.push(category);
+		}
 
 		if (mood) {
-			sql += " AND mood = ?";
+			sql += " AND v.mood = ?";
 			params.push(mood);
 		}
 
 		if (tone) {
-			sql += " AND tone = ?";
+			sql += " AND v.tone = ?";
 			params.push(tone);
 		}
 
 		sql += `
-			ORDER BY created_at DESC
+			ORDER BY v.created_at DESC
 			LIMIT ? OFFSET ?
 		`;
 
@@ -63,23 +83,34 @@ export class GetVerses extends OpenAPIRoute {
 		const { results } = await c.env.DB.prepare(sql).bind(...params).all();
 
 		// -------------------------
+		// Fallback logic (IMPORTANT)
+		// -------------------------
+		// If no results for requested language → fallback to English
+		let finalResults = results;
+
+		if (results.length === 0 && language !== "en") {
+			const fallback = await c.env.DB.prepare(sql)
+				.bind("en", ...params.slice(1))
+				.all();
+
+			finalResults = fallback.results;
+		}
+
+		// -------------------------
 		// Normalize response
 		// -------------------------
-		const formatted = results.map((row: any) => ({
+		const formatted = finalResults.map((row: any) => ({
 			id: row.id,
 			verse_text: row.verse_text,
 			reference: row.reference,
-			category: row.category,
-			language: row.language,
 			image_url: row.image_url,
+			category: row.category,
 
-			// Safe defaults
 			theme: row.theme || "",
 			scene: row.scene || "",
 			mood: row.mood || "",
 			tone: row.tone || "",
 
-			// Parse tags safely
 			tags: (() => {
 				try {
 					return row.tags ? JSON.parse(row.tags) : [];
