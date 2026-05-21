@@ -10,3 +10,17 @@ export const Task = z.object({
 	completed: z.boolean().default(false),
 	due_date: z.iso.date(),
 });
+
+
+export interface Env {
+
+	DB: D1Database;
+
+	FIREBASE_PROJECT_ID: string;
+
+	FIREBASE_CLIENT_EMAIL: string;
+
+	FIREBASE_PRIVATE_KEY: string;
+
+	INTERNAL_API_KEY: string;
+}

@@ -1,5 +1,7 @@
 import { OpenAPIRoute } from "chanfana";
 import { z } from "zod";
+import { sendVersePush }
+	from "../services/push";
 
 export class CreateVerse extends OpenAPIRoute {
 	schema = {
@@ -122,8 +124,23 @@ export class CreateVerse extends OpenAPIRoute {
 				).run();
 			}
 
+			 // AUTO PUSH
+		c.executionCtx.waitUntil(
+
+			sendVersePush(
+				c.env,
+				{
+					image_url:
+						image_url,
+					translations:
+						translations
+				}
+			)
+		);
+
 			return c.json({
 				success: true,
+				verseId: verseId,
 				message: "Verse created successfully"
 			});
 

@@ -19,8 +19,14 @@
       "binding": "DB",
       "database_name": "bible-verses-db",
       "database_id": "dab111ed-229d-4e58-b3d0-0f0166d961b2"
-    }
-  ]
+    },
+  ],
+  "vars": {
+
+    "FIREBASE_PROJECT_ID": "santabibila",
+
+    "FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-1hgxh@santabibila.iam.gserviceaccount.com"
+  }
 
 	/**
 	 * Smart Placement
