@@ -16,11 +16,15 @@ export interface Env {
 
 	DB: D1Database;
 
-	FIREBASE_PROJECT_ID: string;
+	// Santa Bible
+	SANTA_FIREBASE_PROJECT_ID: string;
+	SANTA_FIREBASE_CLIENT_EMAIL: string;
+	SANTA_FIREBASE_PRIVATE_KEY: string;
 
-	FIREBASE_CLIENT_EMAIL: string;
-
-	FIREBASE_PRIVATE_KEY: string;
+	// Portuguese Bible
+	PORTUGUESE_FIREBASE_PROJECT_ID: string;
+	PORTUGUESE_FIREBASE_CLIENT_EMAIL: string;
+	PORTUGUESE_FIREBASE_PRIVATE_KEY: string;
 
 	INTERNAL_API_KEY: string;
 }
