@@ -16,55 +16,65 @@ const TOPIC_LANGUAGE_MAP = [
 	{
 		topic: "daily_verse_image_zu",
 		language: "eng",
-		project: "portuguese"
+		project: "portuguese",
+		deeplinkSchema: "hcbibleapps"
 	},
 
 	{
 		topic: "daily_verse_image_fr",
 		language: "fr",
-		project: "santa"
+		project: "santa",
+		deeplinkSchema: "hcbibleapps"
+
 	},
 
 	{
 		topic: "daily_verse_image_es",
 		language: "es",
-		project: "santa"
+		project: "santa",
+		deeplinkSchema: "hcbibleapps"
 	},
 
 	{
 		topic: "daily_verse_image_se",
 		language: "eng",
-		project: "portuguese"
+		project: "portuguese",
+		deeplinkSchema: "hcbibleapps"
 	},
 
 	{
 		topic: "daily_verse_image_hi",
 		language: "hi",
-		project: "santa"
+		project: "santa",
+		deeplinkSchema: "hcbibleapps"
 	},
 
 	{
 		topic: "daily_verse_image_te",
 		language: "te",
-		project: "santa"
+		project: "santa",
+		deeplinkSchema: "hcbibleapps"
 	},
 
 	{
 		topic: "daily_verse_image_ta",
 		language: "ta",
-		project: "santa"
+		project: "santa",
+		deeplinkSchema: "hcbibleapps"
 	},
 
 	{
 		topic: "daily_verse_image_ko",
 		language: "ko",
-		project: "portuguese"
+		project: "portuguese",
+		deeplinkSchema: "hcbibleapps"
 	},
 
 	{
 		topic: "daily_verse_image_ar",
 		language: "ar",
-		project: "portuguese"
+		project: "portuguese",
+		deeplinkSchema: "hcbibleapps"
 	}
 ];
 
@@ -88,6 +98,7 @@ export async function sendVersePush(
 		const topic = item.topic;
 
 		const project = item.project;
+		const schema = item.deeplinkSchema;
 
 		const accessToken = await getAccessToken(env, project);
 
@@ -119,7 +130,8 @@ export async function sendVersePush(
 				topic,
 				language,
 				translation,
-				verse.image_url
+				verse.image_url,
+				schema
 			);
 
 			console.log(
@@ -147,7 +159,8 @@ async function sendTopicPush(
 	topic: string,
 	language: string,
 	translation: any,
-	imageUrl: string
+	imageUrl: string,
+	schema: string
 ) {
 
 	const title =
@@ -156,7 +169,9 @@ async function sendTopicPush(
 		);
 
 	console.log(
-		`Sending topic push to Topi:${topic}\n language:${language}\n Translation:${translation.verse_text}\n— ${translation.reference}\n imageUrl:${imageUrl}`
+		`Sending topic push to Topi:${topic}\n language:${language}\n
+		 Translation:${translation.verse_text}\n
+		 ${translation.reference}\n imageUrl:${imageUrl}`
 	);
 
 	const firebaseConfig = getFirebaseConfig(env, project);
@@ -197,8 +212,10 @@ async function sendTopicPush(
 							image_url:
 								imageUrl,
 
-							reference:
-								translation.reference
+							verse_text:
+								translation.verse_text,
+							reference: translation.reference,
+							deep_link: `${schema}://verse-image-generator`
 						},
 
 						android: {
