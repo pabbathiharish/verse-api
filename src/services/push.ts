@@ -142,7 +142,7 @@ async function sendTopicPush(
 		);
 
 	console.log(
-		`Sending topic push to Topi:${topic}\n language:${language}\n Translation:${translation.short_text}\n— ${translation.reference}\n imageUrl:${imageUrl}`
+		`Sending topic push to Topi:${topic}\n language:${language}\n Translation:${translation.verse_text}\n— ${translation.reference}\n imageUrl:${imageUrl}`
 	);
 
 	const response =
@@ -173,7 +173,7 @@ async function sendTopicPush(
 							title,
 
 							body:
-`${translation.short_text}\n— ${translation.reference}`
+`${translation.verse_text}\n— ${translation.reference}`
 						},
 
 						data: {
