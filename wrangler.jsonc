@@ -23,9 +23,14 @@
   ],
   "vars": {
 
-    "FIREBASE_PROJECT_ID": "santabibila",
+    "SANTA_FIREBASE_PROJECT_ID": "santabibila",
 
-    "FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-1hgxh@santabibila.iam.gserviceaccount.com"
+    "SANTA_FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-1hgxh@santabibila.iam.gserviceaccount.com",
+
+	"PORTUGUESE_FIREBASE_PROJECT_ID": "portuguese-bibil-1581151330423",
+
+  	"PORTUGUESE_FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-24ool@portuguese-bibil-1581151330423.iam.gserviceaccount.com"
+
   }
 
 	/**
