@@ -215,7 +215,7 @@ async function sendTopicPush(
 							verse_text:
 								translation.verse_text,
 							reference: translation.reference,
-							deep_link: `${schema}://verse-image-generator`
+							deep_link: `${schema}://home/verse-image-generator`
 						},
 
 						android: {
