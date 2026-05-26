@@ -1,5 +1,5 @@
 export const localizedTitles:
-Record<string, string> = {
+	Record<string, string> = {
 
 	eng:
 		"A Verse Created for You ✨",

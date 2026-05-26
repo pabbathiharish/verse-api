@@ -42,7 +42,7 @@ export async function getAccessToken(
 	const jwt =
 		await new SignJWT({
 			scope:
-"https://www.googleapis.com/auth/cloud-platform"
+				"https://www.googleapis.com/auth/cloud-platform"
 		})
 			.setProtectedHeader({ alg })
 			.setIssuedAt(now)
@@ -66,14 +66,14 @@ export async function getAccessToken(
 
 				headers: {
 					"Content-Type":
-"application/x-www-form-urlencoded"
+						"application/x-www-form-urlencoded"
 				},
 
 				body:
 					new URLSearchParams({
 
 						grant_type:
-"urn:ietf:params:oauth:grant-type:jwt-bearer",
+							"urn:ietf:params:oauth:grant-type:jwt-bearer",
 
 						assertion:
 							jwt

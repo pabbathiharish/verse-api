@@ -82,23 +82,23 @@ export async function sendVersePush(
 		of TOPIC_LANGUAGE_MAP
 	) {
 
-		
+
 		const language = item.language;
 
 		const topic = item.topic;
-		
+
 		const project = item.project;
-		
+
 		const accessToken = await getAccessToken(env, project);
-		
-		console.log("Firebase access token generated" );
+
+		console.log("Firebase access token generated");
 
 		console.log(
 			`Processing language: ${language}`
 		);
 		const translation =
 			verse.translations[
-				language
+			language
 			];
 
 		if (!translation) {
@@ -113,14 +113,14 @@ export async function sendVersePush(
 		try {
 
 			await sendTopicPush(
-					env,
-					accessToken,
-					project,
-					topic,
-					language,
-					translation,
-					verse.image_url
-					);
+				env,
+				accessToken,
+				project,
+				topic,
+				language,
+				translation,
+				verse.image_url
+			);
 
 			console.log(
 				`Topic push success for ${language}`
@@ -159,12 +159,12 @@ async function sendTopicPush(
 		`Sending topic push to Topi:${topic}\n language:${language}\n Translation:${translation.verse_text}\n— ${translation.reference}\n imageUrl:${imageUrl}`
 	);
 
-	const firebaseConfig = getFirebaseConfig(env,project);
+	const firebaseConfig = getFirebaseConfig(env, project);
 
 	const response =
 		await fetch(
 
-`https://fcm.googleapis.com/v1/projects/${firebaseConfig.FIREBASE_PROJECT_ID}/messages:send`,
+			`https://fcm.googleapis.com/v1/projects/${firebaseConfig.projectId}/messages:send`,
 
 			{
 				method: "POST",
@@ -189,7 +189,7 @@ async function sendTopicPush(
 							title,
 
 							body:
-`${translation.verse_text}\n— ${translation.reference}`
+								`${translation.verse_text}\n— ${translation.reference}`
 						},
 
 						data: {

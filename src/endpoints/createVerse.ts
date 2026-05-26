@@ -124,19 +124,19 @@ export class CreateVerse extends OpenAPIRoute {
 				).run();
 			}
 
-			 // AUTO PUSH
-		c.executionCtx.waitUntil(
+			// AUTO PUSH
+			c.executionCtx.waitUntil(
 
-			sendVersePush(
-				c.env,
-				{
-					image_url:
-						image_url,
-					translations:
-						translations
-				}
-			)
-		);
+				sendVersePush(
+					c.env,
+					{
+						image_url:
+							image_url,
+						translations:
+							translations
+					}
+				)
+			);
 
 			return c.json({
 				success: true,
