@@ -1,15 +1,6 @@
 import { getAccessToken }
 	from "./firebaseAuth";
 
-import { getTokensByLanguage }
-	from "./firestore";
-
-import { chunkArray }
-	from "../utils/chunks";
-
-import { processWithConcurrency }
-	from "../utils/concurrency";
-
 import { getLocalizedTitle }
 	from "../services/localization";
 
@@ -28,13 +19,15 @@ export async function sendVersePush(
 	verse: any
 ) {
 
-	console.log("===== PUSH STARTED =====");
+	console.log(
+		"===== TOPIC PUSH STARTED ====="
+	);
 
 	const accessToken =
 		await getAccessToken(env);
 
 	console.log(
-		"Firebase access token generated successfully"
+		"Firebase access token generated"
 	);
 
 	for (
@@ -54,104 +47,43 @@ export async function sendVersePush(
 		if (!translation) {
 
 			console.log(
-				`No translation found for language: ${language}`
+				`No translation found for ${language}`
 			);
 
 			continue;
 		}
 
-		console.log(
-			`Fetching tokens for language: ${language}`
-		);
+		try {
 
-		const tokens =
-			await getTokensByLanguage(
+			await sendTopicPush(
 				env,
 				accessToken,
-				language
+				language,
+				translation,
+				verse.image_url
 			);
-		const limitedTokens = tokens.slice(0, 20);
-
-		console.log(
-			`Found ${tokens.length} tokens for ${language}`
-		);
-
-		if (!tokens.length) {
 
 			console.log(
-				`Skipping ${language} because no tokens found`
+				`Topic push success for ${language}`
 			);
-
-			continue;
 		}
+		catch (error: any) {
 
-		const batches = chunkArray(limitedTokens, 5);
-
-		console.log(
-			`${language} split into ${batches.length} batches`
-		);
-
-		await processWithConcurrency(
-	batches,
-	1,
-
-	async (batch: any[]) => {
-
-		console.log(
-			`Starting batch with ${batch.length} tokens for ${language}`
-		);
-
-		await processWithConcurrency(
-			batch,
-			1,
-
-			async (item: any) => {
-
-				try {
-
-					await sendSinglePush(
-						env,
-						accessToken,
-						item.token,
-						item.bundleId,
-						language,
-						translation,
-						verse.image_url
-					);
-
-					console.log(
-						`Push success for ${language}`
-					);
-				}
-				catch (error: any) {
-
-					console.error(
-						`Push failed for ${language}`,
-						error?.message || error
-					);
-				}
-			}
-		);
-
-		console.log(
-			`Completed batch for ${language}`
-		);
-	}
-);
-
-		console.log(
-			`Completed language: ${language}`
-		);
+			console.error(
+				`Topic push failed for ${language}`,
+				error?.message || error
+			);
+		}
 	}
 
-	console.log("===== PUSH COMPLETED =====");
+	console.log(
+		"===== TOPIC PUSH COMPLETED ====="
+	);
 }
 
-async function sendSinglePush(
+async function sendTopicPush(
 	env: Env,
 	accessToken: string,
-	token: string,
-	bundleId: string,
 	language: string,
 	translation: any,
 	imageUrl: string
@@ -161,6 +93,13 @@ async function sendSinglePush(
 		getLocalizedTitle(
 			language
 		);
+
+	const topic =
+		`daily_verse_${language}`;
+
+	console.log(
+		`Sending topic push to ${topic}`
+	);
 
 	const response =
 		await fetch(
@@ -183,7 +122,7 @@ async function sendSinglePush(
 
 					message: {
 
-						token,
+						topic,
 
 						notification: {
 
@@ -196,7 +135,10 @@ async function sendSinglePush(
 						data: {
 
 							image_url:
-								imageUrl
+								imageUrl,
+
+							reference:
+								translation.reference
 						},
 
 						android: {
@@ -209,12 +151,6 @@ async function sendSinglePush(
 						},
 
 						apns: {
-
-							headers: {
-
-								"apns-topic":
-									bundleId
-							},
 
 							payload: {
 
@@ -242,7 +178,7 @@ async function sendSinglePush(
 	if (!response.ok) {
 
 		console.error(
-			"FCM PUSH ERROR:",
+			"FCM TOPIC PUSH ERROR:",
 			text
 		);
 
@@ -250,6 +186,6 @@ async function sendSinglePush(
 	}
 
 	console.log(
-		"FCM push sent successfully"
+		`Topic push sent successfully to ${topic}`
 	);
 }
