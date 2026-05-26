@@ -76,13 +76,14 @@ export async function sendVersePush(
 		of TOPIC_LANGUAGE_MAP
 	) {
 
-		console.log(
-			`Processing language: ${language}`
-		);
+		
 		const language = item.language;
 
 		const topic = item.topic;
 
+		console.log(
+			`Processing language: ${language}`
+		);
 		const translation =
 			verse.translations[
 				language
