@@ -6,18 +6,29 @@ import {
 import type { Env }
 	from "../types";
 
+import {
+	getFirebaseConfig
+} from "../utils/firebaseConfig";
+
 const GOOGLE_TOKEN_URL =
 	"https://oauth2.googleapis.com/token";
 
 export async function getAccessToken(
-	env: Env
+	env: Env,
+	project: string
 ): Promise<string> {
+
+	const firebaseConfig =
+		getFirebaseConfig(
+			env,
+			project
+		);
 
 	const now =
 		Math.floor(Date.now() / 1000);
 
 	const privateKey =
-		env.FIREBASE_PRIVATE_KEY
+		firebaseConfig.privateKey
 			.replace(/\\n/g, "\n");
 
 	const alg = "RS256";
@@ -37,10 +48,10 @@ export async function getAccessToken(
 			.setIssuedAt(now)
 			.setExpirationTime(now + 3600)
 			.setIssuer(
-				env.FIREBASE_CLIENT_EMAIL
+				firebaseConfig.clientEmail
 			)
 			.setSubject(
-				env.FIREBASE_CLIENT_EMAIL
+				firebaseConfig.clientEmail
 			)
 			.setAudience(
 				GOOGLE_TOKEN_URL
@@ -60,6 +71,7 @@ export async function getAccessToken(
 
 				body:
 					new URLSearchParams({
+
 						grant_type:
 "urn:ietf:params:oauth:grant-type:jwt-bearer",
 
