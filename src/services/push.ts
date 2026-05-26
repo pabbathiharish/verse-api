@@ -142,7 +142,7 @@ async function sendTopicPush(
 		);
 
 	console.log(
-		`Sending topic push to ${topic}`
+		`Sending topic push to Topi:${topic}\n language:${language}\n Translation:${translation.short_text}\n— ${translation.reference}\n imageUrl:${imageUrl}`
 	);
 
 	const response =
