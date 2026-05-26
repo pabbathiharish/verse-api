@@ -7,51 +7,64 @@ import { getLocalizedTitle }
 import type { Env }
 	from "../types";
 
+import {
+	getFirebaseConfig
+} from "../utils/firebaseConfig";
+
 const TOPIC_LANGUAGE_MAP = [
 
 	{
 		topic: "daily_verse_image_zu",
-		language: "eng"
+		language: "eng",
+		project: "portuguese"
 	},
 
 	{
 		topic: "daily_verse_image_fr",
-		language: "fr"
+		language: "fr",
+		project: "santa"
 	},
 
 	{
 		topic: "daily_verse_image_es",
-		language: "es"
+		language: "es",
+		project: "santa"
 	},
 
 	{
 		topic: "daily_verse_image_se",
-		language: "eng"
+		language: "eng",
+		project: "portuguese"
 	},
 
 	{
 		topic: "daily_verse_image_hi",
-		language: "hi"
+		language: "hi",
+		project: "santa"
 	},
 
 	{
 		topic: "daily_verse_image_te",
-		language: "te"
+		language: "te",
+		project: "santa"
 	},
 
 	{
 		topic: "daily_verse_image_ta",
-		language: "ta"
+		language: "ta",
+		project: "santa"
 	},
 
 	{
 		topic: "daily_verse_image_ko",
-		language: "ko"
+		language: "ko",
+		project: "portuguese"
 	},
 
 	{
 		topic: "daily_verse_image_ar",
-		language: "ar"
+		language: "ar",
+		project: "portuguese"
 	}
 ];
 
@@ -64,13 +77,6 @@ export async function sendVersePush(
 		"===== TOPIC PUSH STARTED ====="
 	);
 
-	const accessToken =
-		await getAccessToken(env);
-
-	console.log(
-		"Firebase access token generated"
-	);
-
 	for (
 		const item
 		of TOPIC_LANGUAGE_MAP
@@ -80,6 +86,12 @@ export async function sendVersePush(
 		const language = item.language;
 
 		const topic = item.topic;
+		
+		const project = item.project;
+		
+		const accessToken = await getAccessToken(env, project);
+		
+		console.log("Firebase access token generated" );
 
 		console.log(
 			`Processing language: ${language}`
@@ -103,6 +115,7 @@ export async function sendVersePush(
 			await sendTopicPush(
 					env,
 					accessToken,
+					project,
 					topic,
 					language,
 					translation,
@@ -130,6 +143,7 @@ export async function sendVersePush(
 async function sendTopicPush(
 	env: Env,
 	accessToken: string,
+	project: string,
 	topic: string,
 	language: string,
 	translation: any,
@@ -145,10 +159,12 @@ async function sendTopicPush(
 		`Sending topic push to Topi:${topic}\n language:${language}\n Translation:${translation.verse_text}\n— ${translation.reference}\n imageUrl:${imageUrl}`
 	);
 
+	const firebaseConfig = getFirebaseConfig(env,project);
+
 	const response =
 		await fetch(
 
-`https://fcm.googleapis.com/v1/projects/${env.FIREBASE_PROJECT_ID}/messages:send`,
+`https://fcm.googleapis.com/v1/projects/${firebaseConfig.FIREBASE_PROJECT_ID}/messages:send`,
 
 			{
 				method: "POST",
