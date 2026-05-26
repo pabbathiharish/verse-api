@@ -42,9 +42,6 @@ export async function getVerseById(
 		verse_text:
 			item.verse_text,
 
-		short_text:
-			item.short_text,
-
 		reference:
 			item.reference
 	};
