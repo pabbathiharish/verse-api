@@ -7,11 +7,52 @@ import { getLocalizedTitle }
 import type { Env }
 	from "../types";
 
-const LANGUAGES = [
-	"es", "pt", "fr",
-	"de", "ru", "eng",
-	"hi", "te", "ta",
-	"ko", "ar"
+const TOPIC_LANGUAGE_MAP = [
+
+	{
+		topic: "daily_verse_image_zu",
+		language: "eng"
+	},
+
+	{
+		topic: "daily_verse_image_fr",
+		language: "fr"
+	},
+
+	{
+		topic: "daily_verse_image_es",
+		language: "es"
+	},
+
+	{
+		topic: "daily_verse_image_se",
+		language: "eng"
+	},
+
+	{
+		topic: "daily_verse_image_hi",
+		language: "hi"
+	},
+
+	{
+		topic: "daily_verse_image_te",
+		language: "te"
+	},
+
+	{
+		topic: "daily_verse_image_ta",
+		language: "ta"
+	},
+
+	{
+		topic: "daily_verse_image_ko",
+		language: "ko"
+	},
+
+	{
+		topic: "daily_verse_image_ar",
+		language: "ar"
+	}
 ];
 
 export async function sendVersePush(
@@ -31,13 +72,16 @@ export async function sendVersePush(
 	);
 
 	for (
-		const language
-		of LANGUAGES
+		const item
+		of TOPIC_LANGUAGE_MAP
 	) {
 
 		console.log(
 			`Processing language: ${language}`
 		);
+		const language = item.language;
+
+		const topic = item.topic;
 
 		const translation =
 			verse.translations[
@@ -56,12 +100,13 @@ export async function sendVersePush(
 		try {
 
 			await sendTopicPush(
-				env,
-				accessToken,
-				language,
-				translation,
-				verse.image_url
-			);
+					env,
+					accessToken,
+					topic,
+					language,
+					translation,
+					verse.image_url
+					);
 
 			console.log(
 				`Topic push success for ${language}`
@@ -84,6 +129,7 @@ export async function sendVersePush(
 async function sendTopicPush(
 	env: Env,
 	accessToken: string,
+	topic: string,
 	language: string,
 	translation: any,
 	imageUrl: string
@@ -93,9 +139,6 @@ async function sendTopicPush(
 		getLocalizedTitle(
 			language
 		);
-
-	const topic =
-		`daily_verse_image_${language}`;
 
 	console.log(
 		`Sending topic push to ${topic}`
