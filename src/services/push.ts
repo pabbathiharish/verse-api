@@ -95,7 +95,7 @@ async function sendTopicPush(
 		);
 
 	const topic =
-		`daily_verse_${language}`;
+		`daily_verse_image_${language}`;
 
 	console.log(
 		`Sending topic push to ${topic}`
