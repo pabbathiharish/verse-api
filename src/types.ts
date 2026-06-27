@@ -15,6 +15,7 @@ export const Task = z.object({
 export interface Env {
 
 	DB: D1Database;
+	QUIZ_DB: D1Database; // New database
 
 	// Santa Bible
 	SANTA_FIREBASE_PROJECT_ID: string;

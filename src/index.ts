@@ -3,6 +3,8 @@ import { Hono } from "hono";
 import { CreateVerse } from "./endpoints/createVerse";
 import { GetVerses } from "./endpoints/getVerses";
 import { SendVersePush } from "./endpoints/sendVersePush";
+import { CreateQuiz } from "./endpoints/createQuiz";
+import { GetQuizzes } from "./endpoints/getQuizzes";
 
 import type { Env }
 	from "./types";
@@ -23,6 +25,17 @@ openapi.post(
 );
 
 openapi.get("/api/verses/feed", GetVerses);
+
+// Quiz Service
+openapi.post(
+  "/api/quizzes",
+  CreateQuiz
+);
+
+openapi.get(
+  "/api/quizzes",
+  GetQuizzes
+);
 
 
 // You may also register routes for non OpenAPI directly on Hono

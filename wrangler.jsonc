@@ -20,6 +20,12 @@
       "database_name": "bible-verses-db",
       "database_id": "dab111ed-229d-4e58-b3d0-0f0166d961b2"
     },
+	{
+      "binding": "QUIZ_DB",
+      "database_name": "daily-quiz",
+      "database_id": "b36c0ae8-3bf6-4f94-90e0-da439cf86238"
+    },
+	
   ],
   "vars": {
 
