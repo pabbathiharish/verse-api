@@ -6,7 +6,7 @@ export async function saveQuiz(
   quiz: any
 ) {
   return env.QUIZ_DB.prepare(`
-      INSERT INTO daily_quizzes (
+      INSERT OR IGNORE INTO daily_quizzes (
           language,
           difficulty,
           verse_uniq_id,
