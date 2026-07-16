@@ -31,4 +31,6 @@ export interface Env {
 
 	INTERNAL_API_KEY: string;
 	OPENAI_API_KEY: string;
+	OPENAI_MODEL: string;
+	
 }

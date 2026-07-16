@@ -127,7 +127,7 @@ export async function generateChapterReview(
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    model: "gpt-5.5-mini",
+                    model: env.OPENAI_MODEL,
 
                     temperature: 0.2,
 
