@@ -16,6 +16,8 @@ export interface Env {
 
 	DB: D1Database;
 	QUIZ_DB: D1Database; // New database
+	AI_BOOK_CHAPTER_REVIEWS_DB: D1Database // new Database for chapter and book short summery
+
 
 	// Santa Bible
 	SANTA_FIREBASE_PROJECT_ID: string;
@@ -28,4 +30,5 @@ export interface Env {
 	PORTUGUESE_FIREBASE_PRIVATE_KEY: string;
 
 	INTERNAL_API_KEY: string;
+	OPENAI_API_KEY: string;
 }
