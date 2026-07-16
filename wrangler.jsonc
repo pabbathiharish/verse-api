@@ -42,7 +42,7 @@
 
   	"PORTUGUESE_FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-24ool@portuguese-bibil-1581151330423.iam.gserviceaccount.com",
 	
-	"OPENAI_MODEL": "gpt-4.1-mini"
+	"OPENAI_MODEL": "gpt-5.4-mini"
 
   }
 
