@@ -83,10 +83,10 @@ export const topicLanguageMap = [
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "daily_verse_image_kn",
-		language: "eng",
+		topic: "daily_verse_image_es",
+		language: "es",
 		project: "santa",
-		deeplinkSchema: "hcbibleapps"
+		deeplinkSchema: "santabibila"
 	}
 	
 ];
