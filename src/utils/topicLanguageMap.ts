@@ -7,14 +7,6 @@ export const topicLanguageMap = [
 		project: "portuguese",
 		deeplinkSchema: "hcbibleapps"
 	},
-
-	{
-		topic: "daily_verse_image_pt",
-		language: "eng",
-		project: "portuguese",
-		deeplinkSchema: "hcbibleapps"
-	},
-
 	{
 		topic: "daily_verse_image_hi",
 		language: "hi",
@@ -33,20 +25,6 @@ export const topicLanguageMap = [
 		topic: "daily_verse_image_ta",
 		language: "ta",
 		project: "santa",
-		deeplinkSchema: "hcbibleapps"
-	},
-
-	{
-		topic: "daily_verse_image_ko",
-		language: "ko",
-		project: "portuguese",
-		deeplinkSchema: "hcbibleapps"
-	},
-
-	{
-		topic: "daily_verse_image_ar",
-		language: "ar",
-		project: "portuguese",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
@@ -111,5 +89,60 @@ export const topicLanguageMap = [
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcfilipino"
+	},
+	{
+		topic: "daily_verse_image_pt",
+		language: "pt",
+		project: "portuguese",
+		deeplinkSchema: "harishbibleapps"
+	},
+	{
+		topic: "daily_verse_image_ko",
+		language: "ko",
+		project: "portuguese",
+		deeplinkSchema: "harishbibleapps"
+	},
+	{
+		topic: "daily_verse_image_eo",
+		language: "eng",
+		project: "portuguese",
+		deeplinkSchema: "harishbibleapps"
+	},
+	{
+		topic: "daily_verse_image_fi",
+		language: "eng",
+		project: "portuguese",
+		deeplinkSchema: "harishbibleapps"
+	},
+	{
+		topic: "daily_verse_image_vi",
+		language: "eng",
+		project: "portuguese",
+		deeplinkSchema: "harishbibleapps"
+	},
+	{
+		topic: "daily_verse_image_el",
+		language: "eng",
+		project: "portuguese",
+		deeplinkSchema: "harishbibleapps"
+	},
+	{
+		topic: "daily_verse_image_ar",
+		language: "ar",
+		project: "portuguese",
+		deeplinkSchema: "harishbibleapps"
+	},
+	{
+		topic: "daily_verse_image_en",
+		language: "eng",
+		project: "portuguese",
+		deeplinkSchema: "harishbibleapps"
+	},
+	{
+		topic: "daily_verse_image_en",
+		language: "eng",
+		project: "santa",
+		deeplinkSchema: "hcbibleapps"
 	}
+
 ];
