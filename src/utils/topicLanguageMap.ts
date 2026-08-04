@@ -9,14 +9,6 @@ export const topicLanguageMap = [
 	},
 
 	{
-		topic: "daily_verse_image_fr",
-		language: "fr",
-		project: "santa",
-		deeplinkSchema: "hcbibleapps"
-
-	},
-
-	{
 		topic: "daily_verse_image_pt",
 		language: "eng",
 		project: "portuguese",
@@ -75,35 +67,19 @@ export const topicLanguageMap = [
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
+	// this map is used for Santa and Valera.
 	{
 		topic: "daily_verse_image_es",
 		language: "es",
 		project: "santa",
 		deeplinkSchema: "santabibila"
 	},
+	// this map is used for darby, martin,lsg1910 and ostervald.
 	{
 		topic: "daily_verse_image_fr",
 		language: "fr",
 		project: "santa",
 		deeplinkSchema: "hclsg1910"
-	},
-	{
-		topic: "daily_verse_image_fr",
-		language: "fr",
-		project: "santa",
-		deeplinkSchema: "hcdarby"
-	},
-	{
-		topic: "daily_verse_image_fr",
-		language: "fr",
-		project: "santa",
-		deeplinkSchema: "hcmartin"
-	},
-	{
-		topic: "daily_verse_image_fr",
-		language: "fr",
-		project: "santa",
-		deeplinkSchema: "hcostervald"
 	},
 	{
 		topic: "daily_verse_image_de",
@@ -116,12 +92,6 @@ export const topicLanguageMap = [
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcromanian"
-	},
-	{
-		topic: "daily_verse_image_es",
-		language: "es",
-		project: "santa",
-		deeplinkSchema: "hcvalera"
 	},
 	{
 		topic: "daily_verse_image_ru",
