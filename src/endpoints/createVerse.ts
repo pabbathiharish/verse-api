@@ -82,6 +82,19 @@ export class CreateVerse extends OpenAPIRoute {
 		`).bind(verse_text, reference, language).first();
 
 			if (existing) {
+				// AUTO PUSH
+			c.executionCtx.waitUntil(
+
+				sendVersePush(
+					c.env,
+					{
+						image_url:
+							image_url,
+						translations:
+							translations
+					}
+				)
+			);
 				return c.json({
 					success: true,
 					message: "Verse already exists",
