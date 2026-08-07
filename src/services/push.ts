@@ -24,6 +24,9 @@ export async function sendVersePush(
 ) {
 
 	console.log(
+		`====== ALL TRANSLATIONS:\n ===== ${verse.translations}`
+	);
+	console.log(
 		"===== TOPIC PUSH STARTED ====="
 	);
 
@@ -108,6 +111,11 @@ async function sendTopicPush(
 			language
 		);
 	const localizedImage = translation.image_url ?? imageUrl;
+
+	console.log(
+		`Translation:${translation}\n`
+	);
+
 	console.log(
 		`Sending topic push to Topi:${topic}\n language:${language}\n
 		 Translation:${translation.verse_text}\n
