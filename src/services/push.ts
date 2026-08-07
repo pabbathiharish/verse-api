@@ -107,12 +107,13 @@ async function sendTopicPush(
 		getLocalizedTitle(
 			language
 		);
-
+	const localizedImage = translation.image_url ?? imageUrl;
 	console.log(
 		`Sending topic push to Topi:${topic}\n language:${language}\n
 		 Translation:${translation.verse_text}\n
-		 ${translation.reference}\n imageUrl:${imageUrl}`
+		 ${translation.reference}\n imageUrl:${localizedImage}`
 	);
+
 
 	const firebaseConfig = getFirebaseConfig(env, project);
 
@@ -150,7 +151,7 @@ async function sendTopicPush(
 						data: {
 
 							image_url:
-								imageUrl,
+								localizedImage,
 
 							verse_text:
 								translation.verse_text,
@@ -163,7 +164,7 @@ async function sendTopicPush(
 							notification: {
 
 								image:
-									imageUrl
+									localizedImage,
 							}
 						},
 
@@ -181,7 +182,7 @@ async function sendTopicPush(
 							fcm_options: {
 
 								image:
-									imageUrl
+									localizedImage,
 							}
 						}
 					}
