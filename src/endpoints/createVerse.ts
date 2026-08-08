@@ -28,7 +28,8 @@ export class CreateVerse extends OpenAPIRoute {
 								z.string(),   // key type (language code)
 								z.object({
 									verse_text: z.string(),
-									reference: z.string()
+									reference: z.string(),
+									rendered_image_url: z.string().url().optional()
 								})
 							)
 						})
@@ -113,14 +114,15 @@ export class CreateVerse extends OpenAPIRoute {
 			for (const [lang, data] of Object.entries(translations)) {
 				await c.env.DB.prepare(`
     INSERT OR IGNORE INTO verse_translations
-    (id, verse_id, language, verse_text, reference)
-    VALUES (?, ?, ?, ?, ?)
+    (id, verse_id, language, verse_text, reference, rendered_image_url)
+    VALUES (?, ?, ?, ?, ?, ?)
   `).bind(
 					crypto.randomUUID(),
 					verseId,
 					lang,
 					data.verse_text,
-					data.reference
+					data.reference,
+					data.rendered_image_url ?? null
 				).run();
 			}
 
