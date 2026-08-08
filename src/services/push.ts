@@ -1,7 +1,10 @@
 import { getAccessToken }
 	from "./firebaseAuth";
 
-import { getLocalizedTitle }
+import {
+	getLocalizedTitle,
+	getLocalizedPushBody
+}
 	from "../services/localization";
 
 import type { Env }
@@ -106,20 +109,19 @@ async function sendTopicPush(
 	schema: string
 ) {
 
-	const title =
-		getLocalizedTitle(
-			language
-		);
-	const localizedImage = translation.image_url ?? imageUrl;
+
+	const title = getLocalizedTitle(language);
+	const pushBody = getLocalizedPushBody(language);
+	const localizedImage = translation.rendered_image_url ?? imageUrl;
+
+	console.log(`Translation: ${JSON.stringify(translation)}`);
 
 	console.log(
-		`Translation:${translation}\n`
-	);
-
-	console.log(
-		`Sending topic push to Topi:${topic}\n language:${language}\n
-		 Translation:${translation.verse_text}\n
-		 ${translation.reference}\n imageUrl:${localizedImage}`
+		`Sending topic push to Topi:${topic}\n 
+		 language:${language}\n
+		 PushTitle:${title}\n
+		 PushBody:${pushBody}\n
+		 renderedImageURL:${localizedImage}`
 	);
 
 
@@ -152,8 +154,8 @@ async function sendTopicPush(
 
 							title,
 
-							body:
-								`${translation.verse_text}\n— ${translation.reference}`
+							body: pushBody
+
 						},
 
 						data: {
