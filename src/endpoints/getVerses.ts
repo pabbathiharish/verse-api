@@ -48,7 +48,8 @@ export class GetVerses extends OpenAPIRoute {
 				v.tags,
 				v.created_at,
 				t.verse_text,
-				t.reference
+				t.reference,
+				t.rendered_image_url
 			FROM verses v
 			JOIN verse_translations t
 			ON v.id = t.verse_id
@@ -104,6 +105,8 @@ export class GetVerses extends OpenAPIRoute {
 			verse_text: row.verse_text,
 			reference: row.reference,
 			image_url: row.image_url,
+			rendered_image_url: row.rendered_image_url,
+			
 			category: row.category,
 
 			theme: row.theme || "",
