@@ -160,11 +160,8 @@ async function sendTopicPush(
 
 						data: {
 
-							image_url:
-								localizedImage,
-
-							verse_text:
-								translation.verse_text,
+							image_url: imageUrl,
+							verse_text: translation.verse_text,
 							reference: translation.reference,
 							deep_link: `${schema}://home/verse-image-generator`
 						},
