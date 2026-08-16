@@ -20,7 +20,6 @@ export const topicLanguageMap = [
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
-
 	{
 		topic: "daily_verse_image_ta",
 		language: "ta",
@@ -143,6 +142,49 @@ export const topicLanguageMap = [
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
+	},
+	{
+		topic: "daily_verse_image_id",
+		language: "eng",
+		project: "santa",
+		deeplinkSchema: "hcbibleapps"
+	},
+	{
+		topic: "daily_verse_image_af",
+		language: "eng",
+		project: "santa",
+		deeplinkSchema: "hcbibleapps"
+	},
+	{
+		topic: "daily_verse_image_kn",
+		language: "eng",
+		project: "santa",
+		deeplinkSchema: "hcbibleapps"
+	},
+	{
+		topic: "daily_verse_image_bn",
+		language: "eng",
+		project: "santa",
+		deeplinkSchema: "hcbibleapps"
+	},
+	{
+		topic: "daily_verse_image_or",
+		language: "eng",
+		project: "santa",
+		deeplinkSchema: "hcbibleapps"
+	},
+	{
+		topic: "daily_verse_image_gu",
+		language: "eng",
+		project: "santa",
+		deeplinkSchema: "hcbibleapps"
+	},
+	{
+		topic: "daily_verse_image_pa",
+		language: "eng",
+		project: "santa",
+		deeplinkSchema: "hcbibleapps"
 	}
-
+	
 ];
+
