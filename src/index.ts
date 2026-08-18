@@ -78,7 +78,7 @@ export default {
 
     switch (controller.cron) {
 
-      case "30 1 * * *":
+      case "30 2 * * *":
 
         await sendMorningPush(env);
 
