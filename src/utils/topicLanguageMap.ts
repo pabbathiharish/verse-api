@@ -184,7 +184,13 @@ export const topicLanguageMap = [
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
-	}
-	
+	},
+	// ANDROID APPS STARTS HERE
+	{
+		topic: "daily_verse_image_te",
+		language: "te",
+		project: "ANDROID_APPS",
+		deeplinkSchema: "hcbibleapps"
+	},
 ];
 

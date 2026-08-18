@@ -29,7 +29,7 @@
       "binding": "AI_BOOK_CHAPTER_REVIEWS_DB",
       "database_name": "ai_book_chapter_reviews",
       "database_id": "90088f66-d97e-479e-8142-5616ec61967a"
-    },
+    }
 	
   ],
   "vars": {
@@ -41,6 +41,15 @@
 	"PORTUGUESE_FIREBASE_PROJECT_ID": "portuguese-bibil-1581151330423",
 
   	"PORTUGUESE_FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-24ool@portuguese-bibil-1581151330423.iam.gserviceaccount.com",
+
+
+	"ANDROID_APPS_FIREBASE_PROJECT_ID": "bibleapps-b6fd7",
+
+  	"ANDROID_APPS_FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-hvnnl@bibleapps-b6fd7.iam.gserviceaccount.com",
+
+	"ANDROID_APPS1_FIREBASE_PROJECT_ID": "bibleapps1-6f602",
+
+  	"ANDROID_APPS1_FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-dp4kx@bibleapps1-6f602.iam.gserviceaccount.com",
 	
 	"OPENAI_MODEL": "gpt-5.4-mini"
 

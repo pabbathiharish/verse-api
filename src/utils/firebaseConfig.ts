@@ -45,6 +45,34 @@ export function getFirebaseConfig(
 					env.PORTUGUESE_FIREBASE_PRIVATE_KEY
 			};
 
+		case "ANDROID_APPS":
+
+			return {
+
+				projectId:
+					env.ANDROID_APPS_FIREBASE_PROJECT_ID,
+
+				clientEmail:
+					env.ANDROID_APPS_FIREBASE_CLIENT_EMAIL,
+
+				privateKey:
+					env.ANDROID_APPS_FIREBASE_PRIVATE_KEY
+			};
+
+		case "ANDROID_APPS1":
+
+			return {
+
+				projectId:
+					env.ANDROID_APPS1_FIREBASE_PROJECT_ID,
+
+				clientEmail:
+					env.ANDROID_APPS1_FIREBASE_CLIENT_EMAIL,
+
+				privateKey:
+					env.ANDROID_APPS1_FIREBASE_PRIVATE_KEY
+			};	
+
 		default:
 
 			throw new Error(
