@@ -169,9 +169,10 @@ async function sendTopicPush(
 						android: {
 
 							notification: {
-
-								image:
-									localizedImage,
+								title,
+								body: pushBody,
+								image: localizedImage,
+								channel_id: "verse_notifications"
 							}
 						},
 

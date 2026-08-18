@@ -194,7 +194,7 @@ export const topicLanguageMap = [
 	},
 	{
 		topic: "daily_verse_image_es",
-		language: "te",
+		language: "es",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
