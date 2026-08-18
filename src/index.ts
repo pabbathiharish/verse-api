@@ -20,6 +20,10 @@ const openapi = fromHono(app, {
   docs_url: "/",
 });
 
+import {
+	sendMorningPush
+} from "./services/morningPush";
+
 //
 // Verse APIs
 //
@@ -56,5 +60,43 @@ openapi.post(
   CreateChapterReview
 );
 
-// Export the Hono app
-export default app;
+// Export Worker
+
+export default {
+
+  fetch: app.fetch,
+
+  async scheduled(
+    controller: ScheduledController,
+    env: Env,
+    ctx: ExecutionContext
+  ) {
+
+    console.log(
+      `===== SCHEDULED JOB: ${controller.cron} =====`
+    );
+
+    switch (controller.cron) {
+
+      case "30 1 * * *":
+
+        await sendMorningPush(env);
+
+        break;
+
+      default:
+
+        console.log(
+          `Unknown cron: ${controller.cron}`
+        );
+    }
+
+    console.log(
+      "===== SCHEDULED JOB COMPLETED ====="
+    );
+  }
+
+};
+
+
+

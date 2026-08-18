@@ -15,46 +15,38 @@
 		"nodejs_compat"
 	],
 	"d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "bible-verses-db",
-      "database_id": "dab111ed-229d-4e58-b3d0-0f0166d961b2"
-    },
-	{
-      "binding": "QUIZ_DB",
-      "database_name": "daily-quiz",
-      "database_id": "b36c0ae8-3bf6-4f94-90e0-da439cf86238"
-    },
-	{
-      "binding": "AI_BOOK_CHAPTER_REVIEWS_DB",
-      "database_name": "ai_book_chapter_reviews",
-      "database_id": "90088f66-d97e-479e-8142-5616ec61967a"
-    }
-	
-  ],
-  "vars": {
-
-    "SANTA_FIREBASE_PROJECT_ID": "santabibila",
-
-    "SANTA_FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-1hgxh@santabibila.iam.gserviceaccount.com",
-
-	"PORTUGUESE_FIREBASE_PROJECT_ID": "portuguese-bibil-1581151330423",
-
-  	"PORTUGUESE_FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-24ool@portuguese-bibil-1581151330423.iam.gserviceaccount.com",
-
-
-	"ANDROID_APPS_FIREBASE_PROJECT_ID": "bibleapps-b6fd7",
-
-  	"ANDROID_APPS_FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-hvnnl@bibleapps-b6fd7.iam.gserviceaccount.com",
-
-	"ANDROID_APPS1_FIREBASE_PROJECT_ID": "bibleapps1-6f602",
-
-  	"ANDROID_APPS1_FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-dp4kx@bibleapps1-6f602.iam.gserviceaccount.com",
-	
-	"OPENAI_MODEL": "gpt-5.4-mini"
-
-  }
-
+		{
+			"binding": "DB",
+			"database_name": "bible-verses-db",
+			"database_id": "dab111ed-229d-4e58-b3d0-0f0166d961b2"
+		},
+		{
+			"binding": "QUIZ_DB",
+			"database_name": "daily-quiz",
+			"database_id": "b36c0ae8-3bf6-4f94-90e0-da439cf86238"
+		},
+		{
+			"binding": "AI_BOOK_CHAPTER_REVIEWS_DB",
+			"database_name": "ai_book_chapter_reviews",
+			"database_id": "90088f66-d97e-479e-8142-5616ec61967a"
+		}
+	],
+	"vars": {
+		"SANTA_FIREBASE_PROJECT_ID": "santabibila",
+		"SANTA_FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-1hgxh@santabibila.iam.gserviceaccount.com",
+		"PORTUGUESE_FIREBASE_PROJECT_ID": "portuguese-bibil-1581151330423",
+		"PORTUGUESE_FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-24ool@portuguese-bibil-1581151330423.iam.gserviceaccount.com",
+		"ANDROID_APPS_FIREBASE_PROJECT_ID": "bibleapps-b6fd7",
+		"ANDROID_APPS_FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-hvnnl@bibleapps-b6fd7.iam.gserviceaccount.com",
+		"ANDROID_APPS1_FIREBASE_PROJECT_ID": "bibleapps1-6f602",
+		"ANDROID_APPS1_FIREBASE_CLIENT_EMAIL": "firebase-adminsdk-dp4kx@bibleapps1-6f602.iam.gserviceaccount.com",
+		"OPENAI_MODEL": "gpt-5.4-mini"
+	},
+	"triggers": {
+		"crons": [
+			"30 1 * * *"
+		]
+	}
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
