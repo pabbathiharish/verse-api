@@ -31,10 +31,10 @@ export async function sendMorningPush(
 	// 1. Fetch latest verse
 	// --------------------------------------------------
 
-	const verse =
+	const latest =
 		await getLatestVerse(env);
 
-	if (!verse) {
+	if (!latest) {
 
 		console.log(
 			"No latest verse found"
@@ -43,11 +43,15 @@ export async function sendMorningPush(
 		return;
 	}
 
-	console.log(
-		`Latest verse: ${JSON.stringify(verse)}`
-	);
+	const verse =
+		latest.verse;
 
+	const translationMap =
+		latest.translations;
 
+	// Cache Firebase tokens per project
+	const accessTokenMap =
+		new Map<string, string>();
 	// --------------------------------------------------
 	// 2. Loop through all morning topics
 	// --------------------------------------------------
@@ -70,12 +74,12 @@ export async function sendMorningPush(
 			item.deeplinkSchema;
 
 
+
+
 		// --------------------------------------------------
 		// 3. Get translation
 		// --------------------------------------------------
-
-		const translation =
-			verse.translations?.[language];
+		const translation = translationMap.get(language);
 
 		if (!translation) {
 
@@ -93,11 +97,24 @@ export async function sendMorningPush(
 			// 4. Firebase access token
 			// --------------------------------------------------
 
-			const accessToken =
-				await getAccessToken(
-					env,
+			let accessToken =
+				accessTokenMap.get(
 					project
 				);
+
+			if (!accessToken) {
+
+				accessToken =
+					await getAccessToken(
+						env,
+						project
+					);
+
+				accessTokenMap.set(
+					project,
+					accessToken
+				);
+			}
 
 
 			// --------------------------------------------------
@@ -134,47 +151,73 @@ export async function sendMorningPush(
 	);
 }
 
-
 // ==================================================
-// Get latest verse
+// Get latest verse with translations
 // ==================================================
 
 async function getLatestVerse(
 	env: Env
 ) {
 
-	const result =
-		await env.DB
-			.prepare(`
-				SELECT *
-				FROM verses
-				ORDER BY created_at DESC
-				LIMIT 1
-			`)
-			.first<any>();
+	// 1. Get latest verse
+	const latestVerse = await env.DB
+		.prepare(`
+			SELECT *
+			FROM verses
+			ORDER BY created_at DESC
+			LIMIT 1
+		`)
+		.first<any>();
 
 
-	if (!result) {
+	if (!latestVerse) {
+
+		console.log(
+			"No latest verse found"
+		);
 
 		return null;
 	}
 
 
-	// If translations is stored as JSON
-	if (
-		typeof result.translations === "string"
-	) {
-
-		result.translations =
-			JSON.parse(
-				result.translations
-			);
-	}
+	console.log(
+		`Latest verse: ${JSON.stringify(latestVerse)}`
+	);
 
 
-	return result;
+	// 2. Get all translations for this verse
+	const translations = await env.DB
+		.prepare(`
+			SELECT *
+			FROM verse_translations
+			WHERE verse_id = ?
+		`)
+		.bind(latestVerse.id)
+		.all<any>();
+
+
+	console.log(
+		`Found ${translations.results.length} translations`
+	);
+
+
+	// 3. Create language lookup
+	const translationMap =
+		new Map(
+			translations.results.map(
+				(translation: any) => [
+					translation.language,
+					translation
+				]
+			)
+		);
+
+
+	return {
+		verse: latestVerse,
+		translations: translationMap
+	};
 }
-
 
 // ==================================================
 // Send Morning Topic Push
@@ -191,11 +234,11 @@ async function sendMorningTopicPush(
 ) {
 
 	const title =
-	morningTitles[language]
-	?? morningTitles.eng;
+		morningTitles[language]
+		?? morningTitles.eng;
 
 	const pushBody =
-	`"${translation.verse_text}" — ${translation.reference}`;
+		`"${translation.verse_text}" — ${translation.reference}`;
 
 
 	console.log(
