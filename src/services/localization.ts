@@ -75,6 +75,7 @@ export function getLocalizedPushBody(language: string): string {
 	return body ?? "May God's Word bring you strength and peace today. 🙏";
 }
 
+
 export const morningTitles:
 	Record<string, string> = {
 
@@ -83,47 +84,6 @@ export const morningTitles:
 
 	en:
 		"Start Your Day with God's Word ✨",
-
-	es:
-		"Comienza tu día con la Palabra de Dios ✨",
-
-	pt:
-		"Comece o seu dia com a Palavra de Deus ✨",
-
-	fr:
-		"Commencez votre journée avec la Parole de Dieu ✨",
-
-	de:
-		"Beginne deinen Tag mit Gottes Wort ✨",
-
-	ru:
-		"Начните свой день со Слова Божьего ✨",
-
-	hi:
-		"परमेश्वर के वचन के साथ अपना दिन शुरू करें ✨",
-
-	te:
-		"దేవుని వాక్యంతో మీ రోజును ప్రారంభించండి ✨",
-
-	ta:
-		"தேவனுடைய வார்த்தையுடன் உங்கள் நாளைத் தொடங்குங்கள் ✨",
-
-	ko:
-		"하나님의 말씀으로 하루를 시작하세요 ✨",
-
-	ar:
-		"ابدأ يومك بكلمة الله ✨"
-};
-
-
-export const eveningTitles:
-	Record<string, string> = {
-
-	eng:
-		"End Your Day with God's Word ✨",
-
-	en:
-		"End Your Day with God's Word ✨",
 
 	es:
 		"Termina tu día con la Palabra de Dios ✨",
@@ -141,6 +101,47 @@ export const eveningTitles:
 		"Завершите свой день со Словом Божьим ✨",
 
 	hi:
+		"परमेश्वर के वचन के साथ अपना दिन शुरू करें ✨",
+
+	te:
+		"దేవుని వాక్యంతో మీ రోజును ప్రారంభించండి ✨",
+
+	ta:
+		"தேவனுடைய வார்த்தையுடன் உங்கள் நாளைத் தொடங்குங்கள் ✨",
+
+	ko:
+		"하나님의 말씀으로 하루를 마무리하세요 ✨",
+
+	ar:
+		"اختتم يومك بكلمة الله ✨"
+};
+
+
+export const eveningTitles:
+	Record<string, string> = {
+
+	eng:
+		"End Your Day with God's Word ✨",
+
+	en:
+		"End Your Day with God's Word ✨",
+
+	es:
+		"Comienza tu día con la Palabra de Dios ✨",
+
+	pt:
+		"Comece o seu dia com a Palavra de Deus ✨",
+
+	fr:
+		"Commencez votre journée avec la Parole de Dieu ✨",
+
+	de:
+		"Beginne deinen Tag mit Gottes Wort ✨",
+
+	ru:
+		"Начните свой день со Слова Божьего ✨",
+
+	hi:
 		"परमेश्वर के वचन के साथ अपना दिन समाप्त करें ✨",
 
 	te:
@@ -153,5 +154,5 @@ export const eveningTitles:
 		"하나님의 말씀으로 하루를 마무리하세요 ✨",
 
 	ar:
-		"اختتم يومك بكلمة الله ✨"
+		"ابدأ يومك بكلمة الله ✨"
 };

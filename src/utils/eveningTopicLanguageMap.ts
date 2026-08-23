@@ -2,185 +2,185 @@
 export const eveningTopicLanguageMap = [
 
 	{
-		topic: "morning_verse_zu",
+		topic: "evening_verse_zu",
 		language: "eng",
 		project: "portuguese",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_hi",
+		topic: "evening_verse_hi",
 		language: "hi",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
 
 	{
-		topic: "morning_verse_te",
+		topic: "evening_verse_te",
 		language: "te",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_ta",
+		topic: "evening_verse_ta",
 		language: "ta",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_sw",
+		topic: "evening_verse_sw",
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_st",
+		topic: "evening_verse_st",
 		language: "eng",
 		project: "portuguese",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_ml",
+		topic: "evening_verse_ml",
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
 	// this map is used for Santa and Valera.
 	{
-		topic: "morning_verse_es",
+		topic: "evening_verse_es",
 		language: "es",
 		project: "santa",
 		deeplinkSchema: "santabibila"
 	},
 	// this map is used for darby, martin,lsg1910 and ostervald.
 	{
-		topic: "morning_verse_fr",
+		topic: "evening_verse_fr",
 		language: "fr",
 		project: "santa",
 		deeplinkSchema: "hclsg1910"
 	},
 	{
-		topic: "morning_verse_de",
+		topic: "evening_verse_de",
 		language: "de",
 		project: "santa",
 		deeplinkSchema: "hcgerman"
 	},
 	{
-		topic: "morning_verse_ro",
+		topic: "evening_verse_ro",
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcromanian"
 	},
 	{
-		topic: "morning_verse_ru",
+		topic: "evening_verse_ru",
 		language: "ru",
 		project: "santa",
 		deeplinkSchema: "hcrussian"
 	},
 
 	{
-		topic: "morning_verse_it",
+		topic: "evening_verse_it",
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcitalian"
 	},
 	{
-		topic: "morning_verse_tl",
+		topic: "evening_verse_tl",
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcfilipino"
 	},
 	{
-		topic: "morning_verse_pt",
+		topic: "evening_verse_pt",
 		language: "pt",
 		project: "portuguese",
 		deeplinkSchema: "harishbibleapps"
 	},
 	{
-		topic: "morning_verse_ko",
+		topic: "evening_verse_ko",
 		language: "ko",
 		project: "portuguese",
 		deeplinkSchema: "harishbibleapps"
 	},
 	{
-		topic: "morning_verse_eo",
+		topic: "evening_verse_eo",
 		language: "eng",
 		project: "portuguese",
 		deeplinkSchema: "harishbibleapps"
 	},
 	{
-		topic: "morning_verse_fi",
+		topic: "evening_verse_fi",
 		language: "eng",
 		project: "portuguese",
 		deeplinkSchema: "harishbibleapps"
 	},
 	{
-		topic: "morning_verse_vi",
+		topic: "evening_verse_vi",
 		language: "eng",
 		project: "portuguese",
 		deeplinkSchema: "harishbibleapps"
 	},
 	{
-		topic: "morning_verse_el",
+		topic: "evening_verse_el",
 		language: "eng",
 		project: "portuguese",
 		deeplinkSchema: "harishbibleapps"
 	},
 	{
-		topic: "morning_verse_ar",
+		topic: "evening_verse_ar",
 		language: "ar",
 		project: "portuguese",
 		deeplinkSchema: "harishbibleapps"
 	},
 	{
-		topic: "morning_verse_en",
+		topic: "evening_verse_en",
 		language: "eng",
 		project: "portuguese",
 		deeplinkSchema: "harishbibleapps"
 	},
 	{
-		topic: "morning_verse_en",
+		topic: "evening_verse_en",
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_id",
+		topic: "evening_verse_id",
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_af",
+		topic: "evening_verse_af",
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_kn",
+		topic: "evening_verse_kn",
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_bn",
+		topic: "evening_verse_bn",
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_or",
+		topic: "evening_verse_or",
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_gu",
+		topic: "evening_verse_gu",
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_pa",
+		topic: "evening_verse_pa",
 		language: "eng",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
@@ -190,197 +190,197 @@ export const eveningTopicLanguageMap = [
 	// ANDROID APPS STARTS HERE 
 	//Ostervald, Martin
 	{
-		topic: "morning_verse_fr",
+		topic: "evening_verse_fr",
 		language: "fr",
 		project: "ANDROID_APPS1",
 		deeplinkSchema: "hcbibleapps"
 	},
 
 	{
-		topic: "morning_verse_es",
+		topic: "evening_verse_es",
 		language: "es",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 
 	{
-		topic: "morning_verse_af",
+		topic: "evening_verse_af",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 
 	{
-		topic: "morning_verse_bn",
+		topic: "evening_verse_bn",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	// Darby, Lsg
 	{
-		topic: "morning_verse_fr",
+		topic: "evening_verse_fr",
 		language: "fr",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_gu",
+		topic: "evening_verse_gu",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_hi",
+		topic: "evening_verse_hi",
 		language: "hi",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_id",
+		topic: "evening_verse_id",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_kn",
+		topic: "evening_verse_kn",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_ml",
+		topic: "evening_verse_ml",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_ne",
+		topic: "evening_verse_ne",
 		language: "hi",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_or",
+		topic: "evening_verse_or",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_pa",
+		topic: "evening_verse_pa",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_st",
+		topic: "evening_verse_st",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_sw",
+		topic: "evening_verse_sw",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_ta",
+		topic: "evening_verse_ta",
 		language: "ta",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_te",
+		topic: "evening_verse_te",
 		language: "te",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_ar",
+		topic: "evening_verse_ar",
 		language: "ar",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_en",
+		topic: "evening_verse_en",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_eo",
+		topic: "evening_verse_eo",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_fil",
+		topic: "evening_verse_fil",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_fi",
+		topic: "evening_verse_fi",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_el",
+		topic: "evening_verse_el",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_it",
+		topic: "evening_verse_it",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_ko",
+		topic: "evening_verse_ko",
 		language: "ko",
 		project: "ANDROID_APPS1",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_pt",
+		topic: "evening_verse_pt",
 		language: "pt",
 		project: "ANDROID_APPS1",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_ro",
+		topic: "evening_verse_ro",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_ru",
+		topic: "evening_verse_ru",
 		language: "ru",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_vi",
+		topic: "evening_verse_vi",
 		language: "eng",
 		project: "ANDROID_APPS1",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_zu",
+		topic: "evening_verse_zu",
 		language: "eng",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_tl",
+		topic: "evening_verse_tl",
 		language: "eng",
 		project: "ANDROID_APPS1",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
-		topic: "morning_verse_de",
+		topic: "evening_verse_de",
 		language: "de",
 		project: "ANDROID_APPS1",
 		deeplinkSchema: "hcbibleapps"
