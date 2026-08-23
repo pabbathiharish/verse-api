@@ -87,7 +87,7 @@ export default {
         await sendMorningPush(env);
 
         break;
-      case "30 13 * * *":
+      case "30 14 * * *":
         await sendEveningPush(env);
 
         break;
