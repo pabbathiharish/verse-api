@@ -114,3 +114,44 @@ export const morningTitles:
 	ar:
 		"ابدأ يومك بكلمة الله ✨"
 };
+
+
+export const eveningTitles:
+	Record<string, string> = {
+
+	eng:
+		"End Your Day with God's Word ✨",
+
+	en:
+		"End Your Day with God's Word ✨",
+
+	es:
+		"Termina tu día con la Palabra de Dios ✨",
+
+	pt:
+		"Termine o seu dia com a Palavra de Deus ✨",
+
+	fr:
+		"Terminez votre journée avec la Parole de Dieu ✨",
+
+	de:
+		"Beende deinen Tag mit Gottes Wort ✨",
+
+	ru:
+		"Завершите свой день со Словом Божьим ✨",
+
+	hi:
+		"परमेश्वर के वचन के साथ अपना दिन समाप्त करें ✨",
+
+	te:
+		"దేవుని వాక్యంతో మీ రోజును ముగించండి ✨",
+
+	ta:
+		"தேவனுடைய வார்த்தையுடன் உங்கள் நாளை முடித்துக்கொள்ளுங்கள் ✨",
+
+	ko:
+		"하나님의 말씀으로 하루를 마무리하세요 ✨",
+
+	ar:
+		"اختتم يومك بكلمة الله ✨"
+};

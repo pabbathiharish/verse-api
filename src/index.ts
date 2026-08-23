@@ -24,6 +24,10 @@ import {
 	sendMorningPush
 } from "./services/morningPush";
 
+import {
+	sendEveningPush
+} from "./services/eveningPush";
+
 //
 // Verse APIs
 //
@@ -81,6 +85,10 @@ export default {
       case "30 2 * * *":
 
         await sendMorningPush(env);
+
+        break;
+      case "30 13 * * *":
+        await sendEveningPush(env);
 
         break;
 

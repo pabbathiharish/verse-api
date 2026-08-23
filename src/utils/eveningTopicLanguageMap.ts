@@ -1,5 +1,5 @@
 
-export const morningTopicLanguageMap = [
+export const eveningTopicLanguageMap = [
 
 	{
 		topic: "morning_verse_zu",

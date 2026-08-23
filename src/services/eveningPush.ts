@@ -2,10 +2,10 @@ import { getAccessToken }
 	from "./firebaseAuth";
 
 import {
-	morningTitles,
+	eveningTitles,
 	getLocalizedPushBody
 }
-	from "../services/localization";
+	from "./localization";
 
 import type { Env }
 	from "../types";
@@ -15,16 +15,16 @@ import {
 } from "../utils/firebaseConfig";
 
 import {
-	morningTopicLanguageMap
-} from "../utils/morningTopicLanguageMap";
+	eveningTopicLanguageMap
+} from "../utils/eveningTopicLanguageMap";
 
 
-export async function sendMorningPush(
+export async function sendEveningPush(
 	env: Env
 ) {
 
 	console.log(
-		"===== MORNING PUSH STARTED ====="
+		"===== EVENING PUSH STARTED ====="
 	);
 
 	// --------------------------------------------------
@@ -53,12 +53,12 @@ export async function sendMorningPush(
 	const accessTokenMap =
 		new Map<string, string>();
 	// --------------------------------------------------
-	// 2. Loop through all morning topics
+	// 2. Loop through all evening topics
 	// --------------------------------------------------
 
 	for (
 		const item
-		of morningTopicLanguageMap
+		of eveningTopicLanguageMap
 	) {
 
 		const language =
@@ -121,7 +121,7 @@ export async function sendMorningPush(
 			// 5. Send notification
 			// --------------------------------------------------
 
-			await sendMorningTopicPush(
+			await sendEveningTopicPush(
 				env,
 				accessToken,
 				project,
@@ -133,21 +133,21 @@ export async function sendMorningPush(
 
 
 			console.log(
-				`Morning push success: ${topic}`
+				`EVENING push success: ${topic}`
 			);
 
 		}
 		catch (error: any) {
 
 			console.error(
-				`Morning push failed: ${topic}`,
+				`Evening push failed: ${topic}`,
 				error?.message || error
 			);
 		}
 	}
 
 	console.log(
-		"===== MORNING PUSH COMPLETED ====="
+		"===== EVENING PUSH COMPLETED ====="
 	);
 }
 
@@ -220,10 +220,10 @@ async function getLatestVerse(
 }
 
 // ==================================================
-// Send Morning Topic Push
+// Send Evening Topic Push
 // ==================================================
 
-async function sendMorningTopicPush(
+async function sendEveningTopicPush(
 	env: Env,
 	accessToken: string,
 	project: string,
@@ -234,15 +234,15 @@ async function sendMorningTopicPush(
 ) {
 
 	const title =
-		morningTitles[language]
-		?? morningTitles.eng;
+		eveningTitles[language]
+		?? eveningTitles.eng;
 
 	const pushBody =
 		`"${translation.verse_text}"\n — ${translation.reference}`;
 
 
 	console.log(
-		`Sending morning push:
+		`Sending Evening push:
 		Topic: ${topic}
 		Language: ${language}
 		Title: ${title}
@@ -314,7 +314,7 @@ async function sendMorningTopicPush(
 	if (!response.ok) {
 
 		console.error(
-			"MORNING FCM ERROR:",
+			"EVENING FCM ERROR:",
 			text
 		);
 
@@ -323,6 +323,6 @@ async function sendMorningTopicPush(
 
 
 	console.log(
-		`Morning push sent successfully to ${topic}`
+		`Evening push sent successfully to ${topic}`
 	);
 }
