@@ -3,9 +3,9 @@ import { getAccessToken }
 
 import {
 	morningTitles,
-	getLocalizedPushBody
+	genericMorningTitles
 }
-	from "../services/localization";
+	from "../utils/devotional_titles";
 
 import type { Env }
 	from "../types";
@@ -232,10 +232,14 @@ async function sendMorningTopicPush(
 	translation: any,
 	schema: string
 ) {
+	const dayIndex = new Date().getUTCDate() - 1;
+
+	const titles =
+		morningTitles[language] ??
+		morningTitles.en;
 
 	const title =
-		morningTitles[language]
-		?? morningTitles.eng;
+		titles?.[dayIndex] ?? genericMorningTitles[language];;
 
 	const pushBody =
 		`"${translation.verse_text}"\n — ${translation.reference}`;
