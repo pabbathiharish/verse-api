@@ -406,7 +406,7 @@ export const morningTitles: Record<string, string[]> = {
 		"اسلك بتواضع مع إلهك ✨",
 		"اثبت في كلمته 📖"
 	],
-	'zu': [
+	zu: [
     "Qala NgeZwi Lakhe 📖",
     "Hamba Ekukhanyeni Kwakhe ✨",
     "Thembela ENkosini Namuhla 🙏",
@@ -439,7 +439,7 @@ export const morningTitles: Record<string, string[]> = {
     "Hamba Ngokuthobeka NoNkulunkulu ✨",
     "Hlala Ezwini Lakhe 📖"
   ],
-	'st': [
+	st: [
     "Qala ka Lentsoe la Hae 📖",
     "Tsamaea Leseling la Hae ✨",
     "Tšepa Morena Kajeno 🙏",
@@ -472,7 +472,7 @@ export const morningTitles: Record<string, string[]> = {
     "Tsamaea ka Boikokobetso le Molimo ✨",
     "Lula Lentsoeng la Hae 📖"
   ],
-	'sw': [
+	sw: [
     "Anza na Neno Lake 📖",
     "Tembea Katika Nuru Yake ✨",
     "Mtumaini Bwana Leo 🙏",
@@ -916,7 +916,7 @@ export const eveningTitles: Record<string, string[]> = {
 		"استرح في أمانة الله 🙏",
 		"اثبت في كلمته ❤️"
 	],
-	'zu': [
+	zu: [
     "Phumula Ezithembisweni Zakhe 🌙",
     "Isikhathi Sokuzindla ❤️",
     "Vumela Ukuthula Kwakhe Kukugcwalise ✨",
@@ -949,7 +949,7 @@ export const eveningTitles: Record<string, string[]> = {
     "Phumula Ekwethembekeni KukaNkulunkulu 🙏",
     "Hlala Ezwini Lakhe ❤️"
   ],
-	'st': [
+	st: [
     "Phomola Litšepisong Tsa Hae 🌙",
     "Nako ea ho Nahanisisa ❤️",
     "Lumella Khotso ea Hae e U Tlatse ✨",
@@ -982,7 +982,7 @@ export const eveningTitles: Record<string, string[]> = {
     "Phomola Botšepehing ba Molimo 🙏",
     "Lula Lentsoeng la Hae ❤️"
   ],
-	'sw': [
+	sw: [
     "Pumzika Katika Ahadi Zake 🌙",
     "Muda wa Kutafakari ❤️",
     "Acha Amani Yake Ikijaze Moyo Wako ✨",
