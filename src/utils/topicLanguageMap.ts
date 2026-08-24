@@ -3,7 +3,7 @@ export const topicLanguageMap = [
 
 	{
 		topic: "daily_verse_image_zu",
-		language: "eng",
+		language: "zu",
 		project: "portuguese",
 		deeplinkSchema: "hcbibleapps"
 	},
@@ -28,13 +28,13 @@ export const topicLanguageMap = [
 	},
 	{
 		topic: "daily_verse_image_sw",
-		language: "eng",
+		language: "sw",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
 		topic: "daily_verse_image_st",
-		language: "eng",
+		language: "st",
 		project: "portuguese",
 		deeplinkSchema: "hcbibleapps"
 	},
@@ -272,13 +272,13 @@ export const topicLanguageMap = [
 	},
 	{
 		topic: "daily_verse_image_st",
-		language: "eng",
+		language: "st",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
 		topic: "daily_verse_image_sw",
-		language: "eng",
+		language: "sw",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
@@ -368,7 +368,7 @@ export const topicLanguageMap = [
 	},
 	{
 		topic: "daily_verse_image_zu",
-		language: "eng",
+		language: "zu",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
