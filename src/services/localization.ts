@@ -35,7 +35,15 @@ export const localizedTitles:
 		"당신을 위한 말씀 ✨",
 
 	ar:
-		"آية من أجلك ✨"
+		"آية من أجلك ✨",
+	zu: 
+		"Ivesi Edalelwe Wena ✨",
+	
+	st: 
+		"Temana e Entsoeng Bakeng sa Hao ✨",
+	
+	sw: 
+		"Mstari Uliotengenezwa Kwa Ajili Yako ✨"
 };
 
 export function getLocalizedTitle(language: string): string {
@@ -68,6 +76,12 @@ export const localizedPushBodies: Record<string, string> = {
 	ko: "오늘 하나님의 말씀이 당신에게 힘과 평안을 주시길 바랍니다. 🙏",
 
 	ar: "لتمنحك كلمة الله القوة والسلام اليوم. 🙏",
+	
+	zu: "Kwangathi iZwi likaNkulunkulu lingakulethela amandla nokuthula namuhla. 🙏",
+
+	st: "E se eka Lentsoe la Molimo le ka u tlisetsa matla le khotso kajeno. 🙏",
+
+	sw: "Neno la Mungu likuletee nguvu na amani leo. 🙏"
 };
 
 export function getLocalizedPushBody(language: string): string {
