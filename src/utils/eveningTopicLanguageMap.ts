@@ -3,7 +3,7 @@ export const eveningTopicLanguageMap = [
 
 	{
 		topic: "evening_verse_zu",
-		language: "eng",
+		language: "zu",
 		project: "portuguese",
 		deeplinkSchema: "hcbibleapps"
 	},
@@ -28,13 +28,13 @@ export const eveningTopicLanguageMap = [
 	},
 	{
 		topic: "evening_verse_sw",
-		language: "eng",
+		language: "sw",
 		project: "santa",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
 		topic: "evening_verse_st",
-		language: "eng",
+		language: "st",
 		project: "portuguese",
 		deeplinkSchema: "hcbibleapps"
 	},
@@ -273,13 +273,13 @@ export const eveningTopicLanguageMap = [
 	},
 	{
 		topic: "evening_verse_st",
-		language: "eng",
+		language: "st",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
 	{
 		topic: "evening_verse_sw",
-		language: "eng",
+		language: "sw",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
@@ -369,7 +369,7 @@ export const eveningTopicLanguageMap = [
 	},
 	{
 		topic: "evening_verse_zu",
-		language: "eng",
+		language: "zu",
 		project: "ANDROID_APPS",
 		deeplinkSchema: "hcbibleapps"
 	},
