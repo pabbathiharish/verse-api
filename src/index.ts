@@ -28,6 +28,14 @@ import {
 	sendEveningPush
 } from "./services/eveningPush";
 
+import {
+	morningCronSchedule
+} from "./utils/morningCronSchedule";
+
+import {
+	eveningCronSchedule
+} from "./utils/eveningCronSchedule";
+
 //
 // Verse APIs
 //
@@ -80,23 +88,33 @@ export default {
       `===== SCHEDULED JOB: ${controller.cron} =====`
     );
 
-    switch (controller.cron) {
+    // Both pushes are split across many crons — one per timezone bucket.
+    // The two schedules are checked independently because a single UTC time
+    // can be morning for one region and evening for another (e.g. 23:00 UTC
+    // is Korea's morning and Brazil's evening).
+    const isMorningCron =
+      Boolean(morningCronSchedule[controller.cron]);
 
-      case "30 2 * * *":
+    const isEveningCron =
+      Boolean(eveningCronSchedule[controller.cron]);
 
-        await sendMorningPush(env);
+    if (isMorningCron) {
 
-        break;
-      case "30 14 * * *":
-        await sendEveningPush(env);
+      await sendMorningPush(env, controller.cron);
 
-        break;
+    }
 
-      default:
+    if (isEveningCron) {
 
-        console.log(
-          `Unknown cron: ${controller.cron}`
-        );
+      await sendEveningPush(env, controller.cron);
+
+    }
+
+    if (!isMorningCron && !isEveningCron) {
+
+      console.log(
+        `Unknown cron: ${controller.cron}`
+      );
     }
 
     console.log(

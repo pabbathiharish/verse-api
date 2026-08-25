@@ -18,13 +18,48 @@ import {
 	morningTopicLanguageMap
 } from "../utils/morningTopicLanguageMap";
 
+import {
+	morningCronSchedule,
+	getRegionFromTopic
+} from "../utils/morningCronSchedule";
+
 
 export async function sendMorningPush(
-	env: Env
+	env: Env,
+	cron: string
 ) {
 
 	console.log(
-		"===== MORNING PUSH STARTED ====="
+		`===== MORNING PUSH STARTED (cron: ${cron}) =====`
+	);
+
+	// --------------------------------------------------
+	// 0. Only send to the regions whose local morning
+	//    matches this cron's UTC time.
+	// --------------------------------------------------
+
+	const allowedRegions =
+		new Set(morningCronSchedule[cron] ?? []);
+
+	if (allowedRegions.size === 0) {
+
+		console.log(
+			`No morning regions mapped for cron: ${cron}`
+		);
+
+		return;
+	}
+
+	const topicsForThisRun =
+		morningTopicLanguageMap.filter(
+			(item) =>
+				allowedRegions.has(
+					getRegionFromTopic(item.topic)
+				)
+		);
+
+	console.log(
+		`Regions for this run: [${[...allowedRegions].join(", ")}] -> ${topicsForThisRun.length} topics`
 	);
 
 	// --------------------------------------------------
@@ -58,7 +93,7 @@ export async function sendMorningPush(
 
 	for (
 		const item
-		of morningTopicLanguageMap
+		of topicsForThisRun
 	) {
 
 		const language =

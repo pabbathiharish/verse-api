@@ -43,9 +43,31 @@
 		"OPENAI_MODEL": "gpt-5.4-mini"
 	},
 	"triggers": {
+		// Union of morning + evening timezone buckets. Two UTC times are
+		// shared between the two pushes (see comments). Keep in sync with
+		// src/utils/morningCronSchedule.ts and src/utils/eveningCronSchedule.ts.
 		"crons": [
-			"30 2 * * *",
-			"30 14 * * *"
+			// Morning — local ~08:00 (morningCronSchedule.ts)
+			"0 0 * * *",  // UTC+8   morning: tl, fil
+			"0 1 * * *",  // UTC+7   morning: id, vi
+			"30 2 * * *", // UTC+5:30 morning: Indian subcontinent
+			"0 5 * * *",  // UTC+3   morning: ru, ar, sw
+			"0 6 * * *",  // UTC+2   morning: zu, st, af, ro, el, fi
+			"0 7 * * *",  // UTC+1   morning: es, fr, de, it
+			"0 8 * * *",  // UTC+0   morning: en, eo
+
+			// Evening — local ~20:00 (eveningCronSchedule.ts)
+			"0 12 * * *", // UTC+8   evening: tl, fil
+			"0 13 * * *", // UTC+7   evening: id, vi
+			"30 14 * * *",// UTC+5:30 evening: Indian subcontinent
+			"0 17 * * *", // UTC+3   evening: ru, ar, sw
+			"0 18 * * *", // UTC+2   evening: zu, st, af, ro, el, fi
+			"0 19 * * *", // UTC+1   evening: es, fr, de, it
+			"0 20 * * *", // UTC+0   evening: en, eo
+
+			// Shared UTC times (fire BOTH a morning and an evening bucket)
+			"0 11 * * *", // morning: pt (Brazil)  |  evening: ko (Korea)
+			"0 23 * * *"  // morning: ko (Korea)   |  evening: pt (Brazil)
 		]
 	}
 	/**

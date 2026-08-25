@@ -18,13 +18,48 @@ import {
 	eveningTopicLanguageMap
 } from "../utils/eveningTopicLanguageMap";
 
+import {
+	eveningCronSchedule,
+	getRegionFromTopic
+} from "../utils/eveningCronSchedule";
+
 
 export async function sendEveningPush(
-	env: Env
+	env: Env,
+	cron: string
 ) {
 
 	console.log(
-		"===== EVENING PUSH STARTED ====="
+		`===== EVENING PUSH STARTED (cron: ${cron}) =====`
+	);
+
+	// --------------------------------------------------
+	// 0. Only send to the regions whose local evening
+	//    matches this cron's UTC time.
+	// --------------------------------------------------
+
+	const allowedRegions =
+		new Set(eveningCronSchedule[cron] ?? []);
+
+	if (allowedRegions.size === 0) {
+
+		console.log(
+			`No evening regions mapped for cron: ${cron}`
+		);
+
+		return;
+	}
+
+	const topicsForThisRun =
+		eveningTopicLanguageMap.filter(
+			(item) =>
+				allowedRegions.has(
+					getRegionFromTopic(item.topic)
+				)
+		);
+
+	console.log(
+		`Regions for this run: [${[...allowedRegions].join(", ")}] -> ${topicsForThisRun.length} topics`
 	);
 
 	// --------------------------------------------------
@@ -58,7 +93,7 @@ export async function sendEveningPush(
 
 	for (
 		const item
-		of eveningTopicLanguageMap
+		of topicsForThisRun
 	) {
 
 		const language =
