@@ -36,6 +36,14 @@ import {
 	eveningCronSchedule
 } from "./utils/eveningCronSchedule";
 
+import {
+	sendNoonPush
+} from "./services/noonPush";
+
+import {
+	noonCronSchedule
+} from "./utils/noonCronSchedule";
+
 //
 // Verse APIs
 //
@@ -95,6 +103,9 @@ export default {
     const isMorningCron =
       Boolean(morningCronSchedule[controller.cron]);
 
+    const isNoonCron =
+      Boolean(noonCronSchedule[controller.cron]);
+
     const isEveningCron =
       Boolean(eveningCronSchedule[controller.cron]);
 
@@ -104,13 +115,19 @@ export default {
 
     }
 
+    if (isNoonCron) {
+
+      await sendNoonPush(env, controller.cron);
+
+    }
+
     if (isEveningCron) {
 
       await sendEveningPush(env, controller.cron);
 
     }
 
-    if (!isMorningCron && !isEveningCron) {
+    if (!isMorningCron && !isNoonCron && !isEveningCron) {
 
       console.log(
         `Unknown cron: ${controller.cron}`
