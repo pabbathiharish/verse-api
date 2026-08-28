@@ -26,41 +26,55 @@ import {
 
 export async function sendNoonPush(
 	env: Env,
-	cron: string
+	cron?: string
 ) {
 
 	console.log(
-		`===== NOON PUSH STARTED (cron: ${cron}) =====`
+		`===== NOON PUSH STARTED (cron: ${cron ?? "ALL"}) =====`
 	);
 
 	// --------------------------------------------------
-	// 0. Only send to the regions whose local noon
-	//    matches this cron's UTC time.
+	// 0. Pick which topics to send.
+	//    - With a cron: only the regions whose local
+	//      noon matches this cron's UTC time.
+	//    - Without a cron (fallback): ALL topics, sent
+	//      directly regardless of timezone.
 	// --------------------------------------------------
 
-	const allowedRegions =
-		new Set(noonCronSchedule[cron] ?? []);
+	let topicsForThisRun = topicLanguageMap;
 
-	if (allowedRegions.size === 0) {
+	if (cron) {
+
+		const allowedRegions =
+			new Set(noonCronSchedule[cron] ?? []);
+
+		if (allowedRegions.size === 0) {
+
+			console.log(
+				`No noon regions mapped for cron: ${cron}`
+			);
+
+			return;
+		}
+
+		topicsForThisRun =
+			topicLanguageMap.filter(
+				(item) =>
+					allowedRegions.has(
+						getRegionFromTopic(item.topic)
+					)
+			);
 
 		console.log(
-			`No noon regions mapped for cron: ${cron}`
+			`Regions for this run: [${[...allowedRegions].join(", ")}] -> ${topicsForThisRun.length} topics`
 		);
 
-		return;
+	} else {
+
+		console.log(
+			`No cron -> sending ALL ${topicsForThisRun.length} noon topics`
+		);
 	}
-
-	const topicsForThisRun =
-		topicLanguageMap.filter(
-			(item) =>
-				allowedRegions.has(
-					getRegionFromTopic(item.topic)
-				)
-		);
-
-	console.log(
-		`Regions for this run: [${[...allowedRegions].join(", ")}] -> ${topicsForThisRun.length} topics`
-	);
 
 	// --------------------------------------------------
 	// 1. Fetch latest verse + translations

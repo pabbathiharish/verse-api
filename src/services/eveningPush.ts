@@ -26,41 +26,55 @@ import {
 
 export async function sendEveningPush(
 	env: Env,
-	cron: string
+	cron?: string
 ) {
 
 	console.log(
-		`===== EVENING PUSH STARTED (cron: ${cron}) =====`
+		`===== EVENING PUSH STARTED (cron: ${cron ?? "ALL"}) =====`
 	);
 
 	// --------------------------------------------------
-	// 0. Only send to the regions whose local evening
-	//    matches this cron's UTC time.
+	// 0. Pick which topics to send.
+	//    - With a cron: only the regions whose local
+	//      evening matches this cron's UTC time.
+	//    - Without a cron (fallback): ALL topics, sent
+	//      directly regardless of timezone.
 	// --------------------------------------------------
 
-	const allowedRegions =
-		new Set(eveningCronSchedule[cron] ?? []);
+	let topicsForThisRun = eveningTopicLanguageMap;
 
-	if (allowedRegions.size === 0) {
+	if (cron) {
+
+		const allowedRegions =
+			new Set(eveningCronSchedule[cron] ?? []);
+
+		if (allowedRegions.size === 0) {
+
+			console.log(
+				`No evening regions mapped for cron: ${cron}`
+			);
+
+			return;
+		}
+
+		topicsForThisRun =
+			eveningTopicLanguageMap.filter(
+				(item) =>
+					allowedRegions.has(
+						getRegionFromTopic(item.topic)
+					)
+			);
 
 		console.log(
-			`No evening regions mapped for cron: ${cron}`
+			`Regions for this run: [${[...allowedRegions].join(", ")}] -> ${topicsForThisRun.length} topics`
 		);
 
-		return;
+	} else {
+
+		console.log(
+			`No cron -> sending ALL ${topicsForThisRun.length} evening topics`
+		);
 	}
-
-	const topicsForThisRun =
-		eveningTopicLanguageMap.filter(
-			(item) =>
-				allowedRegions.has(
-					getRegionFromTopic(item.topic)
-				)
-		);
-
-	console.log(
-		`Regions for this run: [${[...allowedRegions].join(", ")}] -> ${topicsForThisRun.length} topics`
-	);
 
 	// --------------------------------------------------
 	// 1. Fetch latest verse

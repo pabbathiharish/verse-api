@@ -10,6 +10,8 @@ import { GetQuizzes } from "./endpoints/getQuizzes";
 
 import { CreateChapterReview } from "./endpoints/createChapterReview";
 
+import { TriggerPush } from "./endpoints/triggerPush";
+
 import type { Env } from "./types";
 
 // Start a Hono app
@@ -57,6 +59,14 @@ openapi.post(
 openapi.get(
   "/api/verses/feed",
   GetVerses
+);
+
+//
+// Push fallback (manual cron re-run)
+//
+openapi.post(
+  "/api/push/trigger",
+  TriggerPush
 );
 
 //
