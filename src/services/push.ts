@@ -23,7 +23,8 @@ import {
 
 export async function sendVersePush(
 	env: Env,
-	verse: any
+	verse: any,
+	onlyTopics?: string[]
 ) {
 
 	console.log(
@@ -33,9 +34,22 @@ export async function sendVersePush(
 		"===== TOPIC PUSH STARTED ====="
 	);
 
+	// Optionally restrict to specific topic(s). When omitted, send to all.
+	const topicsToSend =
+		onlyTopics && onlyTopics.length > 0
+			? topicLanguageMap.filter(
+				(item) => onlyTopics.includes(item.topic)
+			)
+			: topicLanguageMap;
+
+	console.log(
+		`Sending to ${topicsToSend.length} topic(s)` +
+		(onlyTopics ? ` (filtered: ${onlyTopics.join(", ")})` : " (all)")
+	);
+
 	for (
 		const item
-		of topicLanguageMap
+		of topicsToSend
 	) {
 
 

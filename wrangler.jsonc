@@ -43,45 +43,32 @@
 		"OPENAI_MODEL": "gpt-5.4-mini"
 	},
 	"triggers": {
-		// Union of morning + noon + evening timezone buckets. Some UTC times
-		// are shared between pushes (see comments). Keep in sync with
-		// src/utils/morningCronSchedule.ts, src/utils/noonCronSchedule.ts and
-		// src/utils/eveningCronSchedule.ts.
+		// Morning + evening are now a single GLOBAL push at IST times (all
+		// topics). Noon stays split by timezone. See src/index.ts (scheduled)
+		// and src/utils/noonCronSchedule.ts.
+		//
+		// To switch morning/evening BACK to per-timezone, restore the split
+		// morning/evening buckets here (from git history) and re-enable the
+		// split branches in src/index.ts.
 		"crons": [
 
-			// Morning — local ~08:00 (morningCronSchedule.ts)
+			// Global IST push (all topics)
 
-			"0 0 * * *",  // UTC+8   morning: tl, fil
-			"0 1 * * *",  // UTC+7   morning: id, vi
-			"30 2 * * *", // UTC+5:30 morning: Indian subcontinent
-			"0 6 * * *",  // UTC+2   morning: zu, st, af, ro, el, fi
-			"0 7 * * *",  // UTC+1   morning: es, fr, de, it
-			"0 8 * * *",  // UTC+0   morning: en, eo
+			"0 2 * * *",  // 7:30 AM IST  -> morning (all topics)
+			"0 13 * * *", // 6:30 PM IST  -> evening (all topics)
 
-			// Noon — local ~12:00 (noonCronSchedule.ts)
+			// Noon — local ~12:00, split by timezone (noonCronSchedule.ts)
+			// (excludes daily_verse_image_te, which is pushed on verse create)
 
 			"0 3 * * *",  // UTC+9   noon: ko
 			"0 4 * * *",  // UTC+8   noon: tl, fil
+			"0 5 * * *",  // UTC+7   noon: id, vi
 			"30 6 * * *", // UTC+5:30 noon: Indian subcontinent
 			"0 9 * * *",  // UTC+3   noon: ru, ar, sw
 			"0 10 * * *", // UTC+2   noon: zu, st, af, ro, el, fi
-			"0 15 * * *", // UTC-3   noon: pt (Brazil)
-
-			// Evening — local ~20:00 (eveningCronSchedule.ts)
-
-			"0 13 * * *", // UTC+7   evening: id, vi
-			"30 14 * * *",// UTC+5:30 evening: Indian subcontinent
-			"0 17 * * *", // UTC+3   evening: ru, ar, sw
-			"0 18 * * *", // UTC+2   evening: zu, st, af, ro, el, fi
-			"0 19 * * *", // UTC+1   evening: es, fr, de, it
-			"0 20 * * *", // UTC+0   evening: en, eo
-
-			// Shared UTC times (fire more than one push/bucket)
-
-			"0 5 * * *",  // morning: ru, ar, sw        |  noon: id, vi
-			"0 11 * * *", // morning: pt | evening: ko  |  noon: es, fr, de, it
-			"0 12 * * *", // evening: tl, fil           |  noon: en, eo
-			"0 23 * * *"  // morning: ko                |  evening: pt (Brazil)
+			"0 11 * * *", // UTC+1   noon: es, fr, de, it
+			"0 12 * * *", // UTC+0   noon: en, eo
+			"0 15 * * *"  // UTC-3   noon: pt (Brazil)
 		]
 	}
 	/**

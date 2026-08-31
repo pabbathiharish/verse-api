@@ -77,6 +77,20 @@ export async function sendNoonPush(
 	}
 
 	// --------------------------------------------------
+	// 0b. Exclude topics handled elsewhere.
+	//     "daily_verse_image_te" is pushed on verse creation
+	//     (see src/endpoints/createVerse.ts), so skip it here to
+	//     avoid a double image push.
+	// --------------------------------------------------
+
+	const EXCLUDED_TOPICS = ["daily_verse_image_te"];
+
+	topicsForThisRun =
+		topicsForThisRun.filter(
+			(item) => !EXCLUDED_TOPICS.includes(item.topic)
+		);
+
+	// --------------------------------------------------
 	// 1. Fetch latest verse + translations
 	// --------------------------------------------------
 

@@ -106,38 +106,46 @@ export default {
       `===== SCHEDULED JOB: ${controller.cron} =====`
     );
 
-    // Both pushes are split across many crons — one per timezone bucket.
-    // The two schedules are checked independently because a single UTC time
-    // can be morning for one region and evening for another (e.g. 23:00 UTC
-    // is Korea's morning and Brazil's evening).
-    const isMorningCron =
-      Boolean(morningCronSchedule[controller.cron]);
+    // ============================================================
+    // GLOBAL IST PUSH (all topics, no timezone split)
+    //   Morning  7:30 AM IST = 02:00 UTC  -> "0 2 * * *"
+    //   Evening  6:30 PM IST = 13:00 UTC  -> "0 13 * * *"
+    // Calling sendMorningPush/sendEveningPush WITHOUT a cron sends to
+    // every topic at once.
+    //
+    // To switch BACK to per-timezone morning/evening: comment out the
+    // two branches below, uncomment the split branches, and restore the
+    // morning/evening crons in wrangler.jsonc (buckets are defined in
+    // src/utils/morningCronSchedule.ts and src/utils/eveningCronSchedule.ts).
+    // ============================================================
 
-    const isNoonCron =
-      Boolean(noonCronSchedule[controller.cron]);
+    if (controller.cron === "0 2 * * *") {
 
-    const isEveningCron =
-      Boolean(eveningCronSchedule[controller.cron]);
+      await sendMorningPush(env);        // ALL topics (global)
 
-    if (isMorningCron) {
+    } else if (controller.cron === "0 13 * * *") {
 
-      await sendMorningPush(env, controller.cron);
+      await sendEveningPush(env);        // ALL topics (global)
 
     }
 
-    if (isNoonCron) {
+    // --- Per-timezone morning/evening (disabled). Uncomment to re-enable ---
+    // else if (morningCronSchedule[controller.cron]) {
+    //   await sendMorningPush(env, controller.cron);
+    // }
+    // else if (eveningCronSchedule[controller.cron]) {
+    //   await sendEveningPush(env, controller.cron);
+    // }
+    // ----------------------------------------------------------------------
+
+    // Noon image push stays split by timezone (local ~12:00).
+    else if (noonCronSchedule[controller.cron]) {
 
       await sendNoonPush(env, controller.cron);
 
     }
 
-    if (isEveningCron) {
-
-      await sendEveningPush(env, controller.cron);
-
-    }
-
-    if (!isMorningCron && !isNoonCron && !isEveningCron) {
+    else {
 
       console.log(
         `Unknown cron: ${controller.cron}`

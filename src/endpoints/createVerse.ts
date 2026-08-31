@@ -126,22 +126,24 @@ export class CreateVerse extends OpenAPIRoute {
 				).run();
 			}
 
-			// AUTO PUSH — disabled.
-			// The image push is now sent by the scheduled noon cron
-			// (see src/services/noonPush.ts), split per timezone like the
-			// morning/evening pushes, instead of firing on verse creation.
-			// c.executionCtx.waitUntil(
-			//
-			// 	sendVersePush(
-			// 		c.env,
-			// 		{
-			// 			image_url:
-			// 				image_url,
-			// 			translations:
-			// 				translations
-			// 		}
-			// 	)
-			// );
+			// AUTO PUSH (image push on verse creation).
+			// Sends ONLY the "daily_verse_image_te" topic. The rest of the
+			// image topics go out via the scheduled noon cron
+			// (see src/services/noonPush.ts), which excludes this same topic
+			// to avoid a double push.
+			c.executionCtx.waitUntil(
+
+				sendVersePush(
+					c.env,
+					{
+						image_url:
+							image_url,
+						translations:
+							translations
+					},
+					["daily_verse_image_te"]
+				)
+			);
 
 			return c.json({
 				success: true,
