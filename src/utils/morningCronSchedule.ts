@@ -1,66 +1,41 @@
 //
-// Morning push time-zone schedule
-// --------------------------------
-// The single 08:00-IST cron used to fire ONE morning push for the whole
-// world. That meant 08:00 IST = evening / night / pre-dawn for everyone
-// outside India.
+// Morning push time-zone schedule (impressions-based) — CURRENTLY DISABLED
+// -----------------------------------------------------------------------
+// Morning is presently sent as a single GLOBAL IST blast (all topics) at
+// 7:30 AM IST — see src/index.ts (the "0 2 * * *" branch) which calls
+// sendMorningPush(env) with NO cron. While that is the case this map is
+// intentionally EMPTY, so it is not consulted at runtime.
 //
-// This map splits the morning push by region so each audience receives it
-// at roughly 08:00 in THEIR local time. The region is taken from the topic
-// suffix (e.g. "morning_verse_it" -> "it" -> Italy), NOT from the `language`
-// field, because most entries carry `language: "eng"` and cannot distinguish
-// one region from another.
+// The block below is the FUTURE per-timezone schedule: fire the morning
+// push at ~08:00 LOCAL time of each topic's top-impressions country
+// (from the AdMob report — same method as noonCronSchedule.ts).
 //
-// Each key is a Cloudflare cron expression (always evaluated in UTC). The
-// value is the list of region codes whose local ~08:00 falls at that UTC
-// time. Every cron listed here MUST also be declared under
-// `triggers.crons` in wrangler.jsonc, and vice-versa.
+// TO ENABLE the per-timezone morning push:
+//   1. Uncomment the entries in the object below.
+//   2. In src/index.ts, disable the global "0 2 * * *" branch and
+//      uncomment the `morningCronSchedule[controller.cron]` branch.
+//   3. Add these cron keys to wrangler.jsonc `triggers.crons`
+//      (0 0, 0 1, 30 2, 0 4, 0 5, 0 6, 0 7, 0 13) and remove "0 2".
 //
-// NOTE on representative timezones: several "languages" span many zones
-// (English, Spanish, Portuguese, Arabic, Russian). We pick one representative
-// offset per region — adjust the region below to shift a group to a different
-// cron bucket.
+// Representative country offsets (standard time; DST not tracked):
+//   Philippines/China +8 | Indonesia +7 | India +5:30 | Armenia +4 |
+//   Tanzania +3 | S.Africa/Finland/Greece +2 | Italy/Austria/Spain +1 |
+//   United States -5
 //
-//   Region examples          Offset      Local 08:00 -> UTC cron
-//   -----------------------  ----------  -----------------------
-//   ko (Korea)               UTC+9       23:00 (previous day)
-//   tl, fil (Philippines)    UTC+8       00:00
-//   id, vi (Indonesia/VN)    UTC+7       01:00
-//   India group              UTC+5:30    02:30
-//   ru, ar, sw               UTC+3       05:00
-//   zu, st, af, ro, el, fi   UTC+2       06:00
-//   es, fr, de, it           UTC+1       07:00
-//   en, eo                   UTC+0       08:00
-//   pt (Brazil)              UTC-3       11:00
+// NOTE: unlike noon, "te" (Telugu) IS included here — the on-create push
+// exclusion applies only to the noon image push.
 //
 export const morningCronSchedule: Record<string, string[]> = {
 
-	// UTC+9 — Korea
-	"0 23 * * *": ["ko"],
-
-	// UTC+8 — Philippines
-	"0 0 * * *": ["tl", "fil"],
-
-	// UTC+7 — Indonesia, Vietnam
-	"0 1 * * *": ["id", "vi"],
-
-	// UTC+5:30 — Indian subcontinent (Nepal/Bangladesh grouped in, ~15-30m off)
-	"30 2 * * *": ["hi", "te", "ta", "ml", "kn", "bn", "or", "gu", "pa", "ne"],
-
-	// UTC+3 — Russia (Moscow), Arabic (Gulf), Swahili (East Africa)
-	"0 5 * * *": ["ru", "ar", "sw"],
-
-	// UTC+2 — Southern Africa, Romania, Greece, Finland
-	"0 6 * * *": ["zu", "st", "af", "ro", "el", "fi"],
-
-	// UTC+1 — Western/Central Europe
-	"0 7 * * *": ["es", "fr", "de", "it"],
-
-	// UTC+0 — English (UK) / Esperanto
-	"0 8 * * *": ["en", "eo"],
-
-	// UTC-3 — Portuguese (Brazil)
-	"0 11 * * *": ["pt"]
+	// ---- FUTURE: impressions-based 8:00 AM local buckets ----
+	// "0 0 * * *":  ["ko", "tl", "fil"],                                   // UTC+8 (Philippines/China) 8 AM
+	// "0 1 * * *":  ["id"],                                                // UTC+7 (Indonesia) 8 AM
+	// "30 2 * * *": ["hi", "te", "ta", "ml", "kn", "bn", "or", "gu", "pa", "ne"], // UTC+5:30 (India) 8 AM
+	// "0 4 * * *":  ["ru"],                                                // UTC+4 (Armenia) 8 AM
+	// "0 5 * * *":  ["sw"],                                                // UTC+3 (Tanzania) 8 AM
+	// "0 6 * * *":  ["zu", "st", "af", "fi", "el"],                        // UTC+2 8 AM
+	// "0 7 * * *":  ["it", "de", "eo"],                                    // UTC+1 8 AM
+	// "0 13 * * *": ["es", "fr", "pt", "ar", "ro", "en", "vi"]             // UTC-5 (US) 8 AM ET
 };
 
 //

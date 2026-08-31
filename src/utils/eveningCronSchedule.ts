@@ -1,58 +1,41 @@
 //
-// Evening push time-zone schedule
-// -------------------------------
-// Mirror of morningCronSchedule.ts, but for the evening push at roughly
-// 20:00 (8 PM) local time per region. Region is taken from the topic
-// suffix (e.g. "evening_verse_it" -> "it" -> Italy), NOT the `language`
-// field (most entries are `language: "eng"`).
+// Evening push time-zone schedule (impressions-based) — CURRENTLY DISABLED
+// -----------------------------------------------------------------------
+// Evening is presently sent as a single GLOBAL IST blast (all topics) at
+// 6:30 PM IST — see src/index.ts (the "0 13 * * *" branch) which calls
+// sendEveningPush(env) with NO cron. While that is the case this map is
+// intentionally EMPTY, so it is not consulted at runtime.
 //
-// Each key is a Cloudflare cron expression (UTC). The value is the list of
-// region codes whose local ~20:00 falls at that UTC time. Every cron listed
-// here MUST also be declared under `triggers.crons` in wrangler.jsonc.
+// The block below is the FUTURE per-timezone schedule: fire the evening
+// push at ~19:00 (7 PM) LOCAL time of each topic's top-impressions country
+// (from the AdMob report — same method as noonCronSchedule.ts).
 //
-// Representative offsets match morningCronSchedule.ts so a region keeps the
-// same timezone assumption for both pushes.
+// TO ENABLE the per-timezone evening push:
+//   1. Uncomment the entries in the object below.
+//   2. In src/index.ts, disable the global "0 13 * * *" branch and
+//      uncomment the `eveningCronSchedule[controller.cron]` branch.
+//   3. Add these cron keys to wrangler.jsonc `triggers.crons`
+//      (0 0, 0 11, 0 12, 30 13, 0 15, 0 16, 0 17, 0 18) and remove "0 13".
 //
-//   Region examples          Offset      Local 20:00 -> UTC cron
-//   -----------------------  ----------  -----------------------
-//   ko (Korea)               UTC+9       11:00   (same time as pt morning)
-//   tl, fil (Philippines)    UTC+8       12:00
-//   id, vi (Indonesia/VN)    UTC+7       13:00
-//   India group              UTC+5:30    14:30
-//   ru, ar, sw               UTC+3       17:00
-//   zu, st, af, ro, el, fi   UTC+2       18:00
-//   es, fr, de, it           UTC+1       19:00
-//   en, eo                   UTC+0       20:00
-//   pt (Brazil)              UTC-3       23:00   (same time as ko morning)
+// Representative country offsets (standard time; DST not tracked):
+//   Philippines/China +8 | Indonesia +7 | India +5:30 | Armenia +4 |
+//   Tanzania +3 | S.Africa/Finland/Greece +2 | Italy/Austria/Spain +1 |
+//   United States -5
+//
+// NOTE: unlike noon, "te" (Telugu) IS included here — the on-create push
+// exclusion applies only to the noon image push.
 //
 export const eveningCronSchedule: Record<string, string[]> = {
 
-	// UTC+9 — Korea (shares 11:00 UTC with pt morning)
-	"0 11 * * *": ["ko"],
-
-	// UTC+8 — Philippines
-	"0 12 * * *": ["tl", "fil"],
-
-	// UTC+7 — Indonesia, Vietnam
-	"0 13 * * *": ["id", "vi"],
-
-	// UTC+5:30 — Indian subcontinent (Nepal/Bangladesh grouped in, ~15-30m off)
-	"30 14 * * *": ["hi", "te", "ta", "ml", "kn", "bn", "or", "gu", "pa", "ne"],
-
-	// UTC+3 — Russia (Moscow), Arabic (Gulf), Swahili (East Africa)
-	"0 17 * * *": ["ru", "ar", "sw"],
-
-	// UTC+2 — Southern Africa, Romania, Greece, Finland
-	"0 18 * * *": ["zu", "st", "af", "ro", "el", "fi"],
-
-	// UTC+1 — Western/Central Europe
-	"0 19 * * *": ["es", "fr", "de", "it"],
-
-	// UTC+0 — English (UK) / Esperanto
-	"0 20 * * *": ["en", "eo"],
-
-	// UTC-3 — Portuguese (Brazil) (shares 23:00 UTC with ko morning)
-	"0 23 * * *": ["pt"]
+	// ---- FUTURE: impressions-based 7:00 PM (19:00) local buckets ----
+	// "0 11 * * *": ["ko", "tl", "fil"],                                    // UTC+8 (Philippines/China) 7 PM
+	// "0 12 * * *": ["id"],                                                 // UTC+7 (Indonesia) 7 PM
+	// "30 13 * * *": ["hi", "te", "ta", "ml", "kn", "bn", "or", "gu", "pa", "ne"], // UTC+5:30 (India) 7 PM
+	// "0 15 * * *": ["ru"],                                                 // UTC+4 (Armenia) 7 PM
+	// "0 16 * * *": ["sw"],                                                 // UTC+3 (Tanzania) 7 PM
+	// "0 17 * * *": ["zu", "st", "af", "fi", "el"],                         // UTC+2 7 PM
+	// "0 18 * * *": ["it", "de", "eo"],                                     // UTC+1 7 PM
+	// "0 0 * * *":  ["es", "fr", "pt", "ar", "ro", "en", "vi"]              // UTC-5 (US) 7 PM ET
 };
 
 //

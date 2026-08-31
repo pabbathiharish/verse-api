@@ -69,6 +69,38 @@
 			"0 10 * * *", // UTC+2  noon: zu, st, af, fi, el
 			"0 11 * * *", // UTC+1  noon: it, de, eo
 			"0 17 * * *"  // UTC-5  noon: es, fr, pt, ar, ro, en, vi (US)
+
+			// ============================================================
+			// FUTURE: impressions-based per-timezone MORNING (8 AM local)
+			// (src/utils/morningCronSchedule.ts). To enable: uncomment
+			// these, comment out the global "0 2 * * *" above, uncomment the
+			// morningCronSchedule branch in src/index.ts.
+			// A few coincide with active noon crons above — do NOT list twice.
+			// ------------------------------------------------------------
+			// "0 0 * * *",  // 8 AM: ko, tl, fil (UTC+8)  | also = US 7 PM evening
+			// "0 1 * * *",  // 8 AM: id (UTC+7)
+			// "30 2 * * *", // 8 AM: India + te (UTC+5:30)
+			// "0 4 * * *",  // 8 AM: ru (UTC+4)   [already active as noon]
+			// "0 5 * * *",  // 8 AM: sw (UTC+3)   [already active as noon]
+			// "0 6 * * *",  // 8 AM: zu, st, af, fi, el (UTC+2)
+			// "0 7 * * *",  // 8 AM: it, de, eo (UTC+1)
+			// "0 13 * * *", // 8 AM: es, fr, pt, ar, ro, en, vi (US)  [= current global evening]
+			//
+			// ============================================================
+			// FUTURE: impressions-based per-timezone EVENING (7 PM local)
+			// (src/utils/eveningCronSchedule.ts). To enable: uncomment
+			// these, comment out the global "0 13 * * *" above, uncomment the
+			// eveningCronSchedule branch in src/index.ts.
+			// A few coincide with active noon crons above — do NOT list twice.
+			// ------------------------------------------------------------
+			// "0 11 * * *", // 7 PM: ko, tl, fil (UTC+8)   [already active as noon]
+			// "0 12 * * *", // 7 PM: id (UTC+7)
+			// "30 13 * * *",// 7 PM: India + te (UTC+5:30)
+			// "0 15 * * *", // 7 PM: ru (UTC+4)
+			// "0 16 * * *", // 7 PM: sw (UTC+3)
+			// "0 17 * * *", // 7 PM: zu, st, af, fi, el (UTC+2)  [already active as noon]
+			// "0 18 * * *", // 7 PM: it, de, eo (UTC+1)
+			// "0 0 * * *"   // 7 PM: es, fr, pt, ar, ro, en, vi (US)  | same cron as UTC+8 8 AM morning
 		]
 	}
 	/**
