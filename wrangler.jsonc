@@ -57,18 +57,18 @@
 			"0 2 * * *",  // 7:30 AM IST  -> morning (all topics)
 			"0 13 * * *", // 6:30 PM IST  -> evening (all topics)
 
-			// Noon — local ~12:00, split by timezone (noonCronSchedule.ts)
-			// (excludes daily_verse_image_te, which is pushed on verse create)
+			// Noon — 12:00 LOCAL time of each topic's top-impressions
+			// country (impressions-driven, noonCronSchedule.ts).
+			// Excludes daily_verse_image_te (pushed on verse create).
 
-			"0 3 * * *",  // UTC+9   noon: ko
-			"0 4 * * *",  // UTC+8   noon: tl, fil
-			"0 5 * * *",  // UTC+7   noon: id, vi
-			"30 6 * * *", // UTC+5:30 noon: Indian subcontinent
-			"0 9 * * *",  // UTC+3   noon: ru, ar, sw
-			"0 10 * * *", // UTC+2   noon: zu, st, af, ro, el, fi
-			"0 11 * * *", // UTC+1   noon: es, fr, de, it
-			"0 12 * * *", // UTC+0   noon: en, eo
-			"0 15 * * *"  // UTC-3   noon: pt (Brazil)
+			"0 4 * * *",  // UTC+8  noon: tl, fil, ko (Philippines/China)
+			"0 5 * * *",  // UTC+7  noon: id (Indonesia)
+			"30 6 * * *", // UTC+5:30 noon: India group (hi, ta, kn, ml, gu, or, pa, bn, ne)
+			"0 8 * * *",  // UTC+4  noon: ru (Armenia)
+			"0 9 * * *",  // UTC+3  noon: sw (Tanzania)
+			"0 10 * * *", // UTC+2  noon: zu, st, af, fi, el
+			"0 11 * * *", // UTC+1  noon: it, de, eo
+			"0 17 * * *"  // UTC-5  noon: es, fr, pt, ar, ro, en, vi (US)
 		]
 	}
 	/**

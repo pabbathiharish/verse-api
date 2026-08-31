@@ -1,60 +1,56 @@
 //
-// Noon push time-zone schedule
-// ----------------------------
-// Same idea as morningCronSchedule.ts / eveningCronSchedule.ts, but for the
-// midday image push (the "daily_verse_image_*" topics in topicLanguageMap)
-// fired at roughly 12:00 (noon) local time per region.
+// Noon push time-zone schedule (impressions-driven)
+// -------------------------------------------------
+// Fires the midday image push (the "daily_verse_image_*" topics in
+// topicLanguageMap) at ~12:00 (noon) LOCAL time for each app's audience.
 //
-// Region is taken from the topic suffix (e.g. "daily_verse_image_it" -> "it"),
-// NOT the `language` field (most entries are `language: "eng"`).
+// Unlike a generic "one representative offset per language", the timezone
+// for each topic is chosen from the country where that app gets the MOST
+// ad impressions (AdMob report). Where several apps share one language
+// topic (e.g. 4 French apps), impressions are combined and the top country
+// wins — because an FCM topic push reaches all its subscribers at once and
+// cannot be split by country.
 //
-// Each key is a Cloudflare cron expression (UTC). The value is the list of
-// region codes whose local ~12:00 falls at that UTC time. Every cron listed
-// here MUST also be declared under `triggers.crons` in wrangler.jsonc.
+// Each key is a Cloudflare cron (UTC); the value is the region codes (topic
+// suffixes) whose top-impressions country hits local 12:00 at that UTC time.
+// Every cron here MUST also be in wrangler.jsonc `triggers.crons`.
 //
-// Representative offsets match the morning/evening schedules so a region keeps
-// the same timezone assumption across all three pushes.
+// NOTE: "daily_verse_image_te" (Telugu) is intentionally NOT here — it is
+// pushed on verse creation (see src/endpoints/createVerse.ts) and is also
+// filtered out in noonPush.ts.
 //
-//   Region examples          Offset      Local 12:00 -> UTC cron
-//   -----------------------  ----------  -----------------------
-//   ko (Korea)               UTC+9       03:00
-//   tl, fil (Philippines)    UTC+8       04:00
-//   id, vi (Indonesia/VN)    UTC+7       05:00   (shared w/ morning ru,ar,sw)
-//   India group              UTC+5:30    06:30
-//   ru, ar, sw               UTC+3       09:00
-//   zu, st, af, ro, el, fi   UTC+2       10:00
-//   es, fr, de, it           UTC+1       11:00   (shared w/ morning pt, evening ko)
-//   en, eo                   UTC+0       12:00   (shared w/ evening tl,fil)
-//   pt (Brazil)              UTC-3       15:00
+// Representative country offsets (standard time; DST not tracked):
+//   Philippines/China UTC+8 | Indonesia UTC+7 | India UTC+5:30 |
+//   Armenia UTC+4 | Tanzania UTC+3 | S.Africa/Finland/Greece UTC+2 |
+//   Italy/Austria/Spain UTC+1 | United States UTC-5
 //
 export const noonCronSchedule: Record<string, string[]> = {
 
-	// UTC+9 — Korea
-	"0 3 * * *": ["ko"],
+	// UTC+8 — Philippines (tl/fil), China (ko top country) — 12:00 local
+	"0 4 * * *": ["tl", "fil", "ko"],
 
-	// UTC+8 — Philippines
-	"0 4 * * *": ["tl", "fil"],
+	// UTC+7 — Indonesia — 12:00 local
+	"0 5 * * *": ["id"],
 
-	// UTC+7 — Indonesia, Vietnam
-	"0 5 * * *": ["id", "vi"],
+	// UTC+5:30 — India (top country for all these) — 12:00 local
+	// (ne = Nepali grouped with India; no separate impressions data)
+	"30 6 * * *": ["hi", "ta", "kn", "ml", "gu", "or", "pa", "bn", "ne"],
 
-	// UTC+5:30 — Indian subcontinent (Nepal/Bangladesh grouped in, ~15-30m off)
-	"30 6 * * *": ["hi", "te", "ta", "ml", "kn", "bn", "or", "gu", "pa", "ne"],
+	// UTC+4 — Armenia (ru top country) — 12:00 local
+	"0 8 * * *": ["ru"],
 
-	// UTC+3 — Russia (Moscow), Arabic (Gulf), Swahili (East Africa)
-	"0 9 * * *": ["ru", "ar", "sw"],
+	// UTC+3 — Tanzania (sw top country) — 12:00 local
+	"0 9 * * *": ["sw"],
 
-	// UTC+2 — Southern Africa, Romania, Greece, Finland
-	"0 10 * * *": ["zu", "st", "af", "ro", "el", "fi"],
+	// UTC+2 — South Africa (zu/st/af), Finland (fi), Greece (el) — 12:00 local
+	"0 10 * * *": ["zu", "st", "af", "fi", "el"],
 
-	// UTC+1 — Western/Central Europe
-	"0 11 * * *": ["es", "fr", "de", "it"],
+	// UTC+1 — Italy (it), Austria (de), Spain (eo) — 12:00 local
+	"0 11 * * *": ["it", "de", "eo"],
 
-	// UTC+0 — English (UK) / Esperanto
-	"0 12 * * *": ["en", "eo"],
-
-	// UTC-3 — Portuguese (Brazil)
-	"0 15 * * *": ["pt"]
+	// UTC-5 — United States (top country for all these, mostly diaspora)
+	// — 12:00 US Eastern
+	"0 17 * * *": ["es", "fr", "pt", "ar", "ro", "en", "vi"]
 };
 
 //
